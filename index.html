@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Louez un vélo à Toulouse en 2 clics dans l'une des stations Idecycle.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        
+        <!--style-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <!--Roboto-->
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
+        <!--Fontawesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <!--leaflet-->
+        <!--<link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js" integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og==" crossorigin=""></script>-->
+        <!--Mapbox-->
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css' rel='stylesheet' />
+        <!--map<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css" type="text/css">-->
+
+        <title>Idecycle, location de vélos à Toulouse</title>
+    </head>
+
+    <body>
+        <header id="header">
+            <img src="img/maison-du-velo.png"/>
+            <div id="nav" >
+                <a href="#body"><i class="fas fa-home fa-lg"></i></a>
+                <a href="#stations"><span>STATIONS</span></a>
+                <a href="#tarifs"><span>TARIFS ET PAIEMENTS</span></a>
+                <a href="#reservations"><span>RÉSERVATIONS</span></a>
+            </div>
+        </header>
+
+        <section id="carrousel" class="container">
+            <div id="but_pic">
+                <div id="prev">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                </div>
+                <div class="slide" class="active_slide">
+                    <img class="slide_img" src="img/slider1.jpg" alt="Idecyle, location de vélos à Toulouse - louez en 3 étapes">
+                    <p class="slide_p">
+                        <span class="ph3">Envie de louer un vélo dans l’heure ?</span></br>
+                        <span class="ph4">Réservez-le en seulement 3 étapes !</span>
+                    </p>
+                </div>
+                <div class="slide">
+                    <img class="slide_img" src="img/slider2.jpg" alt="Idecyle, location de vélos à Toulouse - Choisissez votre station de location">
+                    <p class="slide_p">
+                        <span class="ph3">1. Choisissez votre station</span></br>
+                        <span class="ph4">Sélectionnez l’un des marqueurs sur la map. La zone de recherche vous permet d’affiner la localité de la station recherchée.</span>
+                    </p>
+                </div>
+                <div class="slide">
+                    <img class="slide_img" src="img/slider3.jpg" alt="Idecyle, location de vélos à Toulouse - Validez votre réservation">
+                    <p class="slide_p">
+                        <span class="ph3">2. Validez la réservation</span></br>
+                        <span class="ph4">Une fois la station choisie, il ne reste plus qu'à valider la réservation. Pour cela, il suffit de signer la réservation dans la zone prévue à cet effet et d'appuyer sur 'Valider'.</span>
+                    </p>
+                </div>
+                <div class="slide">
+                    <img class="slide_img" src="img/slider4.jpg" alt="Idecyle, location de vélos à Toulouse - les infos sur votre réservation">
+                    <p class="slide_p">
+                        <span class="ph3">3. Réservation en cours</span></br>
+                        <span class="ph4">Retrouvez toutes les informations concernant votre réservation en cours, ainsi que la possibilité de l'annuler à tout moment.</span>
+                    </p>
+                </div>
+                <div id="next">
+                    <button id="next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div id="play_stop">
+                <button id="play"><i class="fas fa-play"></i></button>
+                <button id="stop"><i class="fas fa-pause"></i></button>
+            </div>
+        </section>
+
+        <div id="map_container">
+            <!-- Div de la carte -->
+            <div id='map'></div>
+            <script>
+            mapboxgl.accessToken = 'pk.eyJ1IjoianVsaWVuZGFsbGFzYW50YSIsImEiOiJjanpvNDgzZ3AwMTFrM25wOG9zODJqcGUwIn0.P9PzQzmLlYgTiQyZcsKfCg';
+            var map = new mapboxgl.Map({
+            center: [1.440466, 43.605000],
+            zoom: 11.8,
+            container: 'map',
+            style: 'mapbox://styles/juliendallasanta/cjzr0ufgz1cua1clhdefajuw7'
+            });
+            </script>
+            <div id="form_container"> <!-- Div de l'encart de réservation -->
+                <div id="before_form" class="presentation">
+                    <p id="before_click">Cliquez sur la station de votre choix pour afficher les informations et réserver votre vélo !</p>
+                    <ul>
+                        <li id="station_verte">Station verte : plus de 10 vélos disponibles</li>
+                        <li id="station_orange">Station orange : moins de 10 vélos disponibles</li>
+                        <li id="station_rouge">Station rouge : aucun vélo disponible</li>
+                    </ul>
+                </div>
+                <div id="station_infos">
+                    <p>Adresse : </p>
+                    <p>Nombre de places : </p>
+                    <p>Nombre de vélos disponibles : </p>
+                </div>
+                <form id="form_bikes"> <!-- FORMULAIRE method="post" action="formulaire.php" -->
+                    <fieldset>
+                        <legend>Réservez un vélo de cette station</legend>
+                        <label for="name">Votre nom : </label><input type="text" name="name" id="name" placeholder="Votre nom" required/><br />
+                        <label for="firstname"> Votre prénom : </label><input type="text" name="firstname" id="firstname" placeholder="Votre prénom" required><br />
+                        <input type="submit" name="submit" id="reservation" value="Réservez !">
+                    </fieldset>
+                </form>
+                <p id="nobikes">Réservation impossible (aucun vélo disponible)</p>
+            </div>
+            <div id="canvas_container"> <!-- Div du Canvas -->
+                <div id="canvas_message">
+                    <p>Signez dans la case pour confirmer :</p>
+                </div>
+                <div id="canvas_div">
+                    <canvas id="canvas_resa" width="200" height="200">Apposez votre signature (si vous voyez ce message, votre navigateur n'est pas à jour)</canvas>
+                </div>
+                <div id="canvas_confirm">
+                    <button type="submit" id="submit_canvas">Validez !</button>
+                    <button type="reset" id="clear_canvas">Recommencez</button>
+                </div>
+            </div>
+        </div>
+
+        <section id="reservations">
+            <h2>Résumé de votre réservation</h2>
+            <div id="res_status" class="res_bloc">
+                <h4>Statut de la réservation</h4>
+                <p><span></span> réservation(s) en cours</p>
+            </div>
+            <p id="res_thx" class="res_bloc">Merci <span id="prenom"></span> pour votre réservation. </br>Voici un résumé de celle-ci :</p>
+            <div id="res_data">
+                <p id="data_station"></p>
+                <p id="data_adresse"></p>
+                <p id="data_time"></p>
+            </div>
+            <button id="abort" class="data_button"><p>Annuler la réservation</p></button>
+            <div id="show_sign">
+                <button id="show_sign_but" class="data_button"><p>Visualiser votre signature</p></button>
+                 <div class="arrow-down"></div>
+            </div>
+            <div id="show_sign_img"></div>
+        </section>
+
+        <footer>
+        </footer>
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDqnF7_sYGUDLj0BkECfFUxwyVqCGn99o"></script>
+        <script src="js/ajax.js"></script>
+        <script src="js/slider.js"></script>
+        <script src="js/mapvelos.js"></script>
+        <!--<script src="js/main.js"></script>
+        <script src="js/markerclusterer.js"></script>-->
+        <script src="js/canvas.js"></script>
+    </body>
+</html>

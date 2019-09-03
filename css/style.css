@@ -1,0 +1,241 @@
+body{
+    margin: 0;
+    font-family: 'Roboto';
+}
+/*-------------------------------------HEADER---------------------------------------------*/
+#header{
+    background-color: white;
+    padding: 1.5%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+#header img{
+    width: 15%;
+}
+#header div{
+    width: 28%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#header a{
+    font-family: sans-serif, "Roboto";
+	margin-top: 1%;
+	font-weight: bold;
+    color:rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+#nav{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+#nav a:hover, #nav a:focus{
+	color: rgba(0, 0, 0, 1);
+	font-weight: bold;
+	text-decoration: none; 
+}
+/*-------------------------------------CARROUSEL---------------------------------------------*/
+#carrousel{
+    background-color: #F0C064;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    width:100%;
+    color: #514640;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-content: center;
+}
+
+#but_pic{
+    width:100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.slide{
+    width: 80%;
+    height: auto;
+    position: relative;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+.slide p{
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    background-color: rgba(0, 0, 0, 0.8);
+    height:90%;
+    width: 21%;
+    position: absolute;
+    left:15%;
+    top: 0%;
+    padding: 1.5em;
+    margin: 0;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+}
+
+.ph3{
+    font-weight: bold;
+    font-size: 2em;
+}
+
+.ph4{
+    font-size: 1.5em;
+    line-height: 1.5em;
+}
+
+/*Tutorial slider controls*/
+
+#carrousel button {
+    border:none;
+	background-color: white;
+    height: 3em;
+    width: 3em;
+    color: #F0C064;
+    padding: 0.3em;
+    text-align: center;
+}
+
+#carrousel button:hover {
+    background-color: #EC6739;
+    color: white;
+    cursor: pointer;
+}
+#play_stop {
+    margin: auto;
+    padding-top: 2em;
+    width: 8%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between
+}
+/*-------------------------------------MAP---------------------------------------------*/
+#map_container{
+    height: 50em;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+#map {
+    height: 100%;
+    width: 75%;
+}
+#form_container{
+    width: 25%;
+    padding: 1em;
+}
+.info-station, .reservation{
+    font-family: 'Roboto';
+}
+.info-station{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+  }
+#stations button{
+    border-radius:0.5em;
+    padding: 0.8em;
+    font-family: 'Roboto';
+    color: white;
+    font-size: 1em;
+    border: none;
+    background-color: #F0C064;
+}
+.info-station button{
+    width: 25%;
+}
+.reservation{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+#canvas-sign{
+    border: solid 1px black;
+}
+/*-------------------------------------RESERVATIONS---------------------------------------------*/
+#reservations{
+    background-color: #454545;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2em;
+    font-family: 'Roboto';
+}
+#reservations h2{
+    color: white;
+    margin-top: 0;
+}
+.res_bloc{
+    text-align: center;
+    border-radius: 0.5em;
+    width: 30%;
+}
+#res_status{
+    background-color: #F0C064;
+    color: white;
+}
+#reservations h4{
+    margin-block-start: 1em;
+    margin-block-end: 0.5em;
+}
+#res_thx{
+    padding-top: 1em;
+    padding-bottom: 1em;
+    border-color: #F0C064;
+    border-width: 0.8px;
+    border: solid;
+    color: #F0C064;
+}
+#prenom{
+    font-weight: bold;
+}
+#reservations button{
+    border-radius:0.5em;
+    margin-top: 1em;
+    font-family: 'Roboto';
+    color: white;
+    font-size: 1em;
+}
+#abort{
+    background-color: firebrick;
+    border: none;
+    width: 15%;
+}
+#abort:hover{
+    background-color: darkred;
+}
+#show_sign{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 15%;
+}
+.arrow-down{
+    width: 0;
+    height: 0;
+    border-right: 1.5em solid transparent;
+    border-left: 1.5em solid transparent;
+    border-top: 1em solid white;
+}
+#show_sign_but{
+    width: 100%;
+    border-style: solid;
+    border-color: white;
+    background-color: rgba(0, 0, 0, 0);
+}
