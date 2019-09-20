@@ -80,24 +80,7 @@
         <div id="map_container">
             <!-- Div de la carte -->
             <div id='map'></div>
-            <script>
-            mapboxgl.accessToken = 'pk.eyJ1IjoianVsaWVuZGFsbGFzYW50YSIsImEiOiJjanpvNDgzZ3AwMTFrM25wOG9zODJqcGUwIn0.P9PzQzmLlYgTiQyZcsKfCg';
-            var map = new mapboxgl.Map({
-            center: [1.440466, 43.605000],
-            zoom: 11.8,
-            container: 'map',
-            style: 'mapbox://styles/juliendallasanta/cjzr0ufgz1cua1clhdefajuw7'
-            });
-            </script>
             <div id="form_container"> <!-- Div de l'encart de réservation -->
-                <div id="before_form" class="presentation">
-                    <p id="before_click">Cliquez sur la station de votre choix pour afficher les informations et réserver votre vélo !</p>
-                    <ul>
-                        <li id="station_verte">Station verte : plus de 10 vélos disponibles</li>
-                        <li id="station_orange">Station orange : moins de 10 vélos disponibles</li>
-                        <li id="station_rouge">Station rouge : aucun vélo disponible</li>
-                    </ul>
-                </div>
                 <div id="station_infos">
                     <p>Adresse : </p>
                     <p>Nombre de places : </p>
@@ -155,8 +138,8 @@
         <script src="js/ajax.js"></script>
         <script src="js/slider.js"></script>
         <script src="js/mapvelos.js"></script>
-        <!--<script src="js/main.js"></script>
-        <script src="js/markerclusterer.js"></script>-->
+        <!--<script src="js/main.js"></script>-->
+        <script src="js/markerclusterer.js"></script>
         <script src="js/canvas.js"></script>
     </body>
 </html>
