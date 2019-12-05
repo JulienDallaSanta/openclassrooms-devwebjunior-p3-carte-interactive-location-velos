@@ -17,25 +17,27 @@ var CanvasForSign = {
 
     // Set-up the canvas and add our event handlers after the page has loaded
     init: function () {
+        return
+        let canvas = document.getElementById('canvas_resa')
         // Get the specific canvas element from the HTML document
-        ctx = document.getElementById('canvas-sign').getContext('2d');
+        ctx = document.getElementById('canvas').getContext('2d');
 
         document.getElementById('submit').style.display = "none";
 
 
         // React to mouse events on the canvas, and mouseup on the entire document
-        document.getElementById('canvas-sign').addEventListener('mousedown', CanvasForSign.sketchpad_mouseDown, false);
-        document.getElementById('canvas-sign').addEventListener('mousemove', CanvasForSign.sketchpad_mouseMove, false);
+        document.getElementById('canvas').addEventListener('mousedown', CanvasForSign.sketchpad_mouseDown, false);
+        document.getElementById('canvas').addEventListener('mousemove', CanvasForSign.sketchpad_mouseMove, false);
         window.addEventListener('mouseup', CanvasForSign.sketchpad_mouseUp, false);
 
         // React to touch events on the canvas
-        document.getElementById('canvas-sign').addEventListener('touchstart', CanvasForSign.sketchpad_touchStart, false);
-        document.getElementById('canvas-sign').addEventListener('touchend', CanvasForSign.sketchpad_touchEnd, false);
-        document.getElementById('canvas-sign').addEventListener('touchmove', CanvasForSign.sketchpad_touchMove, false);
+        document.getElementById('canvas').addEventListener('touchstart', CanvasForSign.sketchpad_touchStart, false);
+        document.getElementById('canvas').addEventListener('touchend', CanvasForSign.sketchpad_touchEnd, false);
+        document.getElementById('canvas').addEventListener('touchmove', CanvasForSign.sketchpad_touchMove, false);
 
         // Reset the canvas on click "Effacer"
         document.getElementById('erase').addEventListener('click', function () {
-            ctx.clearRect(0, 0, document.getElementById('canvas-sign').width, document.getElementById('canvas-sign').height);
+            ctx.clearRect(0, 0, document.getElementById('canvas').width, document.getElementById('canvas').height);
             document.getElementById('submit').style.display = "none";
         });
 
