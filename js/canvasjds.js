@@ -1,26 +1,25 @@
-let canvas = $("#canvas");
-let context = canvas.getContext('2d');
-
 class Sign{
     constructor(parent, width, height){
         this.parent = parent;
         this.width = width;
         this.height = height;
+        this.buildCanvas();
+        this.canvas = $("#canvas");
+        this.context = this.canvas[0].getContext('2d');
         // Variables :
         this.color = "#000";
         this.painting = false;
         this.started = false;
         this.width_brush = 1;
-        this.cursorX, this.cursorY;
+        this.cursorX = null;
+        this.cursorY = null;
         // Trait arrondi :
         this.context.lineJoin = 'round';
         this.context.lineCap = 'round';
+        // Paramètrage des eventListener
         this.mousedown();
         this.mouseup();
         this.mousemove();
-        this.drawLine();
-        // Insertion du canvas 
-        this.buildCanvas();
     }
     // Fonction qui insert le canvas :
     buildCanvas(){
@@ -30,158 +29,113 @@ class Sign{
         </canvas>
         `));
     }
+    // Fonctions pour les event :
     mousedown() {
-        var that = this;
         // Click souris enfoncé sur le canvas, je dessine :
-        $(this.canvas).mousedown(function (e) {
-            that.painting = true;
-
+        $(this.canvas).mousedown((e) => {
+            this.painting = true;
             // Coordonnées de la souris :
-            that.cursorX = (e.pageX - this.offsetLeft);
-            that.cursorY = (e.pageY - this.offsetTop);
-
+            this.cursorX = (e.pageX - this.canvas[0].offsetLeft);
+            this.cursorY = (e.pageY - this.canvas[0].offsetTop);
         });
 
     }
     mouseup() {
-        var that = this;
         // Relachement du Click sur tout le document, j'arrête de dessiner :
-        $(this.canvas).mouseup(function () {
-            that.painting = false;
-            that.started = false;
+        $(this.canvas).mouseup(() => {
+            this.painting = false;
+            this.started = false;
         });
     }
     mousemove() {
-        var that = this;
         // Mouvement de la souris sur le canvas :
-        $(this.canvas).mousemove(function (e) {
+        $(this.canvas).mousemove((e) => {
             // Si je suis en train de dessiner (click souris enfoncé) :
-            if (that.painting) {
+            if (this.painting) {
                 // Set Coordonnées de la souris :
-                that.cursorX = (e.pageX - this.offsetLeft) - 2; // 10 = décalage du curseur
-                that.cursorY = (e.pageY - this.offsetTop) - 2;
-                that.drawLine()
+                this.cursorX = (e.pageX - this.canvas[0].offsetLeft) - 2;
+                this.cursorY = (e.pageY - this.canvas[0].offsetTop) - 2;
+                this.drawLine();
             }
         });
     }
+
     // Fonction qui dessine une ligne :
     drawLine() {
-        var that = this;
         // Si c'est le début, j'initialise
         if (!this.started) {
             // Je place mon curseur pour la première fois :
-            that.context.beginPath();
-            that.context.moveTo(this.cursorX, this.cursorY);
-            that.started = true;
+            this.context.moveTo(this.cursorX, this.cursorY);
+            this.context.beginPath();
+            this.started = true;
         }
         // Sinon je dessine
         else {
-            that.context.lineTo(this.cursorX, this.cursorY);
-            that.context.strokeStyle = this.color;
-            that.context.lineWidth = this.width_brush;
-            that.context.stroke();
+            this.context.lineTo(this.cursorX, this.cursorY);
+            this.context.strokeStyle = this.color;
+            this.context.lineWidth = this.width_brush;
+            this.context.stroke();
         }
+    }
+
+    generateBlob() {
+        return new Promise((resolve, reject) =>{
+            this.canvas[0].toBlob((blob) => {
+                resolve(blob);
+            }, "image/jpeg", 1)
+        })
+    }
+
+    // Fonction pour effacer le contenu du canvas :
+    clearCanvas() {
+        this.context.clearRect(0, 0, 300, 150);
     }
 }
 
 function rescan(event){
     event.stopPropagation();
     $('#form_container').append($(`
-    <div id="canvas_container">
-        <div id="canvas_message">
-            <p>Signez dans la case pour confirmer :</p>
+        <div id="canvas_container">
+            <div id="canvas_message">
+                <p>Signez dans la case pour confirmer :</p>
+            </div>
+            <div id="canvas_div"></div>
+            <div id="canvas_confirm">
+                <button type="submit" id="submit_res">Validez</button>
+                <button type="reset" id="clear_canvas">Effacer</button>
+            </div>
         </div>
-        <div id="canvas_div"></div>
-        <div id="canvas_confirm">
-            <button type="submit" id="submit_canvas">Validez</button>
-            <button type="reset" id="clear_canvas">Effacer</button>
-        </div>
-    </div>
     `))
-    new Sign($('#canvas_div'), 150, 150);
+    console.log($('#canvas_div').width());
+    let maSignature = new Sign($('#canvas_div'), '300px', '150px');
+    console.log($('#canvas'))
+
+    $('#clear_canvas').on("click", () => maSignature.clearCanvas());
+    $('#submit_res').click(() => {
+        /*//get canvas into blob && store it into a var
+        let promise = maSignature.generateBlob();
+        promise.then((blob) =>{
+            // Define the FileReader which is able to read the contents of Blob
+            var reader = new FileReader();
+
+            // The magic always begins after the Blob is successfully loaded
+            reader.onload = () => {
+                // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
+                var b64 = reader.result.replace(/^data:.+;base64,/, '');
+                console.log(b64); //-> "V2VsY29tZSB0byA8Yj5iYXNlNjQuZ3VydTwvYj4h"
+
+               
+            };
+
+            // Since everything is set up, let’s read the Blob and store the result as Data URI
+            reader.readAsDataURL(blob);
+        });*/
+        let dataUrl = maSignature.canvas[0].toDataURL().replace(/^data:.+;base64,/, '');
+        console.log(dataUrl);
+
+        //get filled datas && store it into vars
+        //check signature && datas
+        //save datas into cookies
+        //create countdown
+    });
 }
-
-/*<div id="canvas_container">
-    <div id="canvas_message">
-        <p>Signez dans la case pour confirmer :</p>
-    </div>
-    <canvas id="canvas" >
-        <p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p>
-    </canvas>
-    <div id="canvas_confirm">
-        <button type="submit" id="submit_canvas">Validez !</button>
-        <button type="reset" id="clear_canvas">Recommencez</button>
-    </div>
-</div>*/
-
-/*class Sign {
-    constructor() {
-        // Variables :
-        this.color = "#000";
-        this.painting = false;
-        this.started = false;
-        this.width_brush = 1;
-        this.canvas = $("#sign");
-        this.cursorX, this.cursorY;
-        this.context = this.canvas[0].getContext('2d');
-        // Trait arrondi :
-        this.context.lineJoin = 'round';
-        this.context.lineCap = 'round';
-        this.mousedown();
-        this.mouseup();
-        this.mousemove();
-        this.drawLine();
-    }
-    mousedown() {
-        var that = this;
-        // Click souris enfoncé sur le canvas, je dessine :
-        $(this.canvas).mousedown(function (e) {
-            that.painting = true;
-
-            // Coordonnées de la souris :
-            that.cursorX = (e.pageX - this.offsetLeft);
-            that.cursorY = (e.pageY - this.offsetTop);
-
-        });
-
-    }
-    mouseup() {
-        var that = this;
-        // Relachement du Click sur tout le document, j'arrête de dessiner :
-        $(this.canvas).mouseup(function () {
-            that.painting = false;
-            that.started = false;
-        });
-    }
-    mousemove() {
-        var that = this;
-        // Mouvement de la souris sur le canvas :
-        $(this.canvas).mousemove(function (e) {
-            // Si je suis en train de dessiner (click souris enfoncé) :
-            if (that.painting) {
-                // Set Coordonnées de la souris :
-                that.cursorX = (e.pageX - this.offsetLeft) - 2; // 10 = décalage du curseur
-                that.cursorY = (e.pageY - this.offsetTop) - 2;
-                that.drawLine()
-            }
-        });
-    }
-    // Fonction qui dessine une ligne :
-    drawLine() {
-        var that = this;
-        // Si c'est le début, j'initialise
-        if (!this.started) {
-            // Je place mon curseur pour la première fois :
-            that.context.beginPath();
-            that.context.moveTo(this.cursorX, this.cursorY);
-            that.started = true;
-        }
-        // Sinon je dessine
-        else {
-            that.context.lineTo(this.cursorX, this.cursorY);
-            that.context.strokeStyle = this.color;
-            that.context.lineWidth = this.width_brush;
-            that.context.stroke();
-        }
-    }
-}*/

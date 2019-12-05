@@ -212,22 +212,31 @@ font-family: 'Open Sans', sans-serif;
     border-radius: 10%;
     border:solid, 1px, #EC6739;
 }
+#form_container{
+    min-width: 330px;
+    max-width: 330px;
+    display: none;
+}
 #info-station, #form_bikes, #canvas_container{
     margin: 0 15px;
 }
 input{
     margin-bottom: 15px;
 }
+#canvas_container{
+    
+}
 #canvas_div{
     border: 1px solid black;
     margin-bottom: 15px;
+    min-height: 150px;
 }
 #canvas_confirm{
     display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
-#submit_canvas, #clear_canvas{
+#submit_res, #clear_canvas{
     display: block;
     margin: 0 auto;
     height: 100%;
@@ -239,7 +248,7 @@ input{
     border:solid 1px;
     box-shadow: none;
 }
-#submit_canvas{
+#submit_res{
     color: #093;
     border-color: #093;
 }
@@ -247,7 +256,7 @@ input{
     color: #c03;
     border-color: #c03;
 }
-#submit_canvas:hover{
+#submit_res:hover{
     color: white;
     background-color: #093;
     border-color: #063;

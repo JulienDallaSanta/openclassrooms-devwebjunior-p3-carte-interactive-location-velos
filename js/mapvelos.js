@@ -29,7 +29,9 @@ class FormStation{
 }
 
 function clickbut(event){
+    event.preventDefault();
     event.stopPropagation();
+    $('#form_container').show();
     let stationNumber = $('.statname').attr('data-id');
     $('#form_container').html('');
     new FormStation($('#form_container'), window.geojson[stationNumber]);
