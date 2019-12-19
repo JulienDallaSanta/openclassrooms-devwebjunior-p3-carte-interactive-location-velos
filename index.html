@@ -90,24 +90,32 @@
             
         </div>
 
-        <section id="reservations">
-            <h2>Résumé de votre réservation</h2>
-            <div id="res_status" class="res_bloc">
-                <h4>Statut de la réservation</h4>
-                <p><span></span> réservation(s) en cours</p>
+        <section id="resCont">
+            <div id="res">
+                <h2>Résumé de votre réservation</h2>
+                <div id="res_status" class="res_bloc">
+                    <h4>Statut de la réservation</h4>
+                    <p><span id="res_status_span">Pas de</span> réservation(s) en cours</p>
+                </div>
+                <div id="res_thx" class="res_bloc">
+                    <p>Merci <span id="res_thx_span"></span> pour votre réservation.</br>Voici un résumé de celle-ci :</p>
+                    <p id="data_station"></p>
+                    <p id="data_adresse"></p>
+                    <p id="data_time"></p>
+                    <div id='decompte'>
+                        <div class='decompteBloc' id='minutes'></div>
+                        <div class='decompteBloc' id='secondes'></div>
+                    </div>
+                </div>
             </div>
-            <p id="res_thx" class="res_bloc">Merci <span id="prenom"></span> pour votre réservation. </br>Voici un résumé de celle-ci :</p>
-            <div id="res_data">
-                <p id="data_station"></p>
-                <p id="data_adresse"></p>
-                <p id="data_time"></p>
+            <div id="res_sign_abort">
+                <div id="show_sign">
+                    <button id="show_sign_but" class="data_button"><p>Visualiser votre signature</p></button>
+                    <div class="arrow-down"></div>
+                </div>
+                <div id="show_sign_img"></div>
+                <button id="abort" class="data_button"><p>Annuler la réservation</p></button>
             </div>
-            <button id="abort" class="data_button"><p>Annuler la réservation</p></button>
-            <div id="show_sign">
-                <button id="show_sign_but" class="data_button"><p>Visualiser votre signature</p></button>
-                 <div class="arrow-down"></div>
-            </div>
-            <div id="show_sign_img"></div>
         </section>
 
         <footer>

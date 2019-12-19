@@ -92,8 +92,15 @@ class Sign{
     }
 }
 
-function rescan(event){
+function submitForm(event){
+    event.preventDefault();
     event.stopPropagation();
+}
+
+function rescan(event){
+    event.preventDefault();
+    event.stopPropagation();
+
     $('#form_container').append($(`
         <div id="canvas_container">
             <div id="canvas_message">
@@ -105,37 +112,39 @@ function rescan(event){
                 <button type="reset" id="clear_canvas">Effacer</button>
             </div>
         </div>
-    `))
-    console.log($('#canvas_div').width());
+    `));
+
     let maSignature = new Sign($('#canvas_div'), '300px', '150px');
-    console.log($('#canvas'))
 
     $('#clear_canvas').on("click", () => maSignature.clearCanvas());
     $('#submit_res').click(() => {
-        /*//get canvas into blob && store it into a var
-        let promise = maSignature.generateBlob();
-        promise.then((blob) =>{
-            // Define the FileReader which is able to read the contents of Blob
-            var reader = new FileReader();
-
-            // The magic always begins after the Blob is successfully loaded
-            reader.onload = () => {
-                // Since it contains the Data URI, we should remove the prefix and keep only Base64 string
-                var b64 = reader.result.replace(/^data:.+;base64,/, '');
-                console.log(b64); //-> "V2VsY29tZSB0byA8Yj5iYXNlNjQuZ3VydTwvYj4h"
-
-               
-            };
-
-            // Since everything is set up, let’s read the Blob and store the result as Data URI
-            reader.readAsDataURL(blob);
-        });*/
-        let dataUrl = maSignature.canvas[0].toDataURL().replace(/^data:.+;base64,/, '');
-        console.log(dataUrl);
+        $("#resCont").show();
+        //get canvas into blob && store it into a var
+        maSignature.canvas[0].toDataURL().replace(/^data:.+;base64,/, '');
 
         //get filled datas && store it into vars
+        let nomForm = $("#name").val();
+        let prenomForm = $("#firstname").val();
+        let prenomNom = prenomForm + " " + nomForm;
+        console.log(prenomForm);
+        console.log(nomForm);
+        console.log(prenomNom);
+
         //check signature && datas
+        $("#res_status_span").html("0");
+        $("#res_thx_span").text(prenomNom);
+        $("#data_station").append(`
+            <p>Vous venez de réservez un vélo à la station </p>
+            ${$("#formStatName").text()}
+        `);
+        $("#data_adresse").append(`
+            <p>située au </p>
+            ${$("#formAddress").text()}
+        `);
+        $("#data_time").text("Votre réservation s'annulera dans : ");
+        $('#decompte').show();
         //save datas into cookies
         //create countdown
     });
+    
 }

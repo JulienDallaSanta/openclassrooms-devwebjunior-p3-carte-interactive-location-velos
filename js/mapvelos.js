@@ -8,20 +8,23 @@ class FormStation{
     buildHeader(){
         $(this.parent).append($(`
         <div id="info-station">
-            <p class='formStatName'>${this.station.name}</p>
-            <p class='formAddress'>Adresse : ${this.station.address}</p>
-            <p class='formAvailableBikes'>Nombre de vélos disponibles : ${this.station.available_bikes}</p>
+            <p id='formStatName'>${this.station.name}</p>
+            <p>Adresse :</p>
+            <p id='formAddress'>${this.station.address}</p>
+            <p id='formAvailableBikes'>Nombre de vélos disponibles : ${this.station.available_bikes}</p>
         </div>
         `));
     }
     buildForm(){
         $(this.parent).append($(`
-        <form id="form_bikes"> 
+        <form id="form_bikes" onsubmit="submitForm(event)"> 
             <fieldset>
                 <legend>Réservez un vélo de cette station</legend>
-                <label for="name">Votre nom : </label><input type="text" name="name" id="name" placeholder="Votre nom" required/><br />
-                <label for="firstname"> Votre prénom : </label><input type="text" name="firstname" id="firstname" placeholder="Votre prénom" required><br />
-                <input type="submit" name="submit" id="reservation" class="pop_res_but" value="Réservez !" onclick="rescan(event)">
+                <label for="name">Votre nom : </label>
+                <input type="text" name="name" id="name" placeholder="Votre nom" required/><br/>
+                <label for="firstname"> Votre prénom : </label>
+                <input type="text" name="firstname" id="firstname" placeholder="Votre prénom" required><br/>
+                <input type="submit" name="submit" id="subForm" class="pop_res_but" value="Réservez !" onclick="rescan(event)">
             </fieldset>
         </form>
         `));
