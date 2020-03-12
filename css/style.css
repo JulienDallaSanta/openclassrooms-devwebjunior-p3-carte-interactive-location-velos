@@ -35,7 +35,7 @@ body{
 #nav a:hover, #nav a:focus{
 	color: rgba(0, 0, 0, 1);
 	font-weight: bold;
-	text-decoration: none; 
+	text-decoration: none;
 }
 /*-------------------------------------CARROUSEL---------------------------------------------*/
 #carrousel{
@@ -224,7 +224,7 @@ input{
     margin-bottom: 15px;
 }
 #canvas_container{
-    
+
 }
 #canvas_div{
     border: 1px solid black;
@@ -343,12 +343,29 @@ input{
     border-width: 0.8px;
     border: solid;
     color: #F0C064;
+    margin-top: 1em;
 }
 #res_thx_span{
     font-weight: bold;
 }
 #decompte{
     display: none;
+}
+.decompteBloc{
+    height: 5em;
+    width: 5em;
+    background-color: #F0C064;
+    color: #454545;
+    float: left;
+    padding: 1%;
+}
+#minutes{
+    margin-left: 27%;
+    margin-right: 10%;
+}
+.timetext{
+    font-weight: bold;
+    font-size: 3em;
 }
 #show_sign_but, #abort{
     border-radius:0.5em;

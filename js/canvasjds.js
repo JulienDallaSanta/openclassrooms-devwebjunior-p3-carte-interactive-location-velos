@@ -118,6 +118,7 @@ function rescan(event){
 
     $('#clear_canvas').on("click", () => maSignature.clearCanvas());
     $('#submit_res').click(() => {
+
         $("#resCont").show();
         //get canvas into blob && store it into a var
         maSignature.canvas[0].toDataURL().replace(/^data:.+;base64,/, '');
@@ -142,9 +143,27 @@ function rescan(event){
             ${$("#formAddress").text()}
         `);
         $("#data_time").text("Votre réservation s'annulera dans : ");
+        const timebase = new Date();
+        var timeout = new Date();
+        timeout.setTime(timebase.getTime() + (30*60*1000));
+        countdown();
+        function countdown(){
+            var now = new Date();
+            console.log(now);
+            var s = (timeout.getTime() - now.getTime()) /1000;
+            var m = Math.floor(s/60);
+            s -= m*60;
+            s = Math.floor(s);
+            $('#minutes').html('<strong class="timetext">'+m+'</strong><br/>Minute'+(m>1 ?'s':''));
+            $('#secondes').html('<strong class="timetext">'+s+'</strong><br/>Seconde'+(s>1 ?'s':''));
+            setTimeout(countdown,1000);
+        }
+        /*if(s==0 && m==0){
+            clearInterval(countdown);
+        }*/
         $('#decompte').show();
         //save datas into cookies
         //create countdown
     });
-    
+
 }
