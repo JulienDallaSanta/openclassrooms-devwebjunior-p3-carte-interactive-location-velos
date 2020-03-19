@@ -100,6 +100,7 @@ function submitForm(event){
 function rescan(event){
     event.preventDefault();
     event.stopPropagation();
+    $('#subForm').hide();
 
     $('#form_container').append($(`
         <div id="canvas_container">
@@ -132,7 +133,7 @@ function rescan(event){
         console.log(prenomNom);
 
         //check signature && datas
-        $("#res_status_span").html("0");
+        $("#res_status_span").html("1");
         $("#res_thx_span").text(prenomNom);
         $("#data_station").append(`
             <p>Vous venez de réservez un vélo à la station </p>
@@ -164,6 +165,9 @@ function rescan(event){
         $('#decompte').show();
         //save datas into cookies
         //create countdown
-    });
 
+        $('#canvas_confirm').html(`
+            <p id="merci">Merci !</p>
+        `);
+    });
 }

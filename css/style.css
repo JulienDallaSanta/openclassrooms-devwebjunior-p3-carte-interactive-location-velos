@@ -266,6 +266,12 @@ input{
     background-color: #c03;
     border-color: #900;
 }
+#merci{
+    margin: 0 auto;
+    padding: 3%;
+    font-weight: bold;
+    color: #F8AD1D;
+}
 .info-station, .reservation{
     font-family: 'Roboto';
 }
@@ -347,6 +353,13 @@ input{
 }
 #res_thx_span{
     font-weight: bold;
+}
+#data_station, #data_adresse{
+    color: white;
+}
+#data_station p, #data_adresse p{
+    font-weight: normal;
+    color:#F0C064;
 }
 #decompte{
     display: none;
