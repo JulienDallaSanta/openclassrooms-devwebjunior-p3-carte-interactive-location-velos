@@ -97,9 +97,22 @@ function submitForm(event){
     event.stopPropagation();
 }
 
+
+function isCharSet(){
+    if (($('#name').value != "") || ($('#firstname').value != "")){
+        $('#subForm').disabled = false;
+    } else{
+        $('#subForm').disabled = true;
+    }
+    $('#subForm').onclick(rescan);
+}
+
+isCharSet();
+
 function rescan(event){
     event.preventDefault();
     event.stopPropagation();
+
     $('#subForm').hide();
 
     $('#form_container').append($(`
@@ -119,7 +132,10 @@ function rescan(event){
 
     $('#clear_canvas').on("click", () => maSignature.clearCanvas());
     $('#submit_res').click(() => {
-
+        $('#resCont').css('display', 'flex');
+        $('#canvas_confirm').html(`
+            <p id="merci">Merci !</p>
+        `);
         $("#resCont").show();
         //get canvas into blob && store it into a var
         maSignature.canvas[0].toDataURL().replace(/^data:.+;base64,/, '');
@@ -146,7 +162,7 @@ function rescan(event){
         $("#data_time").text("Votre réservation s'annulera dans : ");
         const timebase = new Date();
         var timeout = new Date();
-        timeout.setTime(timebase.getTime() + (30*60*1000));
+        timeout.setTime(timebase.getTime() + (5*1000));
         countdown();
         function countdown(){
             var now = new Date();
@@ -158,16 +174,20 @@ function rescan(event){
             $('#minutes').html('<strong class="timetext">'+m+'</strong><br/>Minute'+(m>1 ?'s':''));
             $('#secondes').html('<strong class="timetext">'+s+'</strong><br/>Seconde'+(s>1 ?'s':''));
             setTimeout(countdown,1000);
+            if(m==0 && s==0){
+                $('#decompte').hide();
+                resAbort();
+            }
         }
-        /*if(s==0 && m==0){
-            clearInterval(countdown);
-        }*/
+        function resAbort(){
+            $('#form_container').hide();
+            $('#res_thx').html(`
+            <p><strong>`+prenomNom+`</strong>,<br/> votre réservation vient d'être annulée.</p>
+            `);
+            $("#res_status_span").html("Pas de");
+        }
         $('#decompte').show();
         //save datas into cookies
         //create countdown
-
-        $('#canvas_confirm').html(`
-            <p id="merci">Merci !</p>
-        `);
     });
 }

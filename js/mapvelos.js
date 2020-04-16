@@ -17,14 +17,14 @@ class FormStation{
     }
     buildForm(){
         $(this.parent).append($(`
-        <form id="form_bikes" onsubmit="submitForm(event)"> 
+        <form id="form_bikes" onsubmit="submitForm(event)">
             <fieldset>
                 <legend>Réservez un vélo de cette station</legend>
                 <label for="name">Votre nom : </label>
-                <input type="text" name="name" id="name" placeholder="Votre nom" required/><br/>
+                <input type="text" name="name" id="name" placeholder="Votre nom" required onkeyup='javascript:isCharSet()'/><br/>
                 <label for="firstname"> Votre prénom : </label>
-                <input type="text" name="firstname" id="firstname" placeholder="Votre prénom" required><br/>
-                <input type="submit" name="submit" id="subForm" class="pop_res_but" value="Réservez !" onclick="rescan(event)">
+                <input type="text" name="firstname" id="firstname" placeholder="Votre prénom" required onkeyup='javascript:isCharSet()'/><br/>
+                <input type="submit" name="submit" id="subForm" class="pop_res_but" value="Réservez !">
             </fieldset>
         </form>
         `));

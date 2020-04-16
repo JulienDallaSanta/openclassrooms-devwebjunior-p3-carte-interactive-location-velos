@@ -307,7 +307,6 @@ input{
 #resCont{
     background-color: #454545;
     display: none;
-    display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
@@ -318,6 +317,7 @@ input{
     align-items: center;
     padding: 2em;
     font-family: 'Roboto';
+    margin:auto;
 }
 #res{
     width: 70%;
@@ -397,6 +397,7 @@ input{
     align-items: center;
 }
 .arrow-down{
+    display: none;
     width: 0;
     height: 0;
     border-right: 1.5em solid transparent;
@@ -416,8 +417,14 @@ input{
     background-color: rgb(255,255,255);
     color:rgb(69, 69, 69);
 }
+#show_sign:hover .arrow-down{
+    display: block;
+}
 #show_sign:hover button p{
     font-weight: bold;
+}
+#show_sign_img{
+    display: none;
 }
 #abort{
     background-color: firebrick;
