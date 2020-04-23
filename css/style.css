@@ -598,9 +598,6 @@ input{
     #mobcanvas_message{
         width: 100%;
     }
-    #mobcanvas_div{
-        width: 60%;
-    }
     #mobcanvas_confirm{
         width: 25%;
         margin-bottom: 15px;
@@ -640,9 +637,6 @@ input{
     }
     #mobsubForm{
         width: 100px;
-    }
-    #mobcanvas_div, #mobcanvas{
-        width: 100%;
     }
     #mobcanvas_confirm{
         height: 15vh;

@@ -1,10 +1,10 @@
 class mobSign{
     constructor(parent, width, height){
         this.parent = parent;
-        this.width = width;
-        this.height = height;
         this.buildCanvas();
         this.canvas = $("#mobcanvas");
+        this.width = this.canvas.width();
+        this.height = this.canvas.height();
         this.context = this.canvas[0].getContext('2d');
         // Variables :
         this.color = "#000";
@@ -19,9 +19,7 @@ class mobSign{
         this.context.lineJoin = 'round';
         this.context.lineCap = 'round';
         // Paramètrage des eventListener
-        this.handleStart();
-        this.handleEnd();
-        this.handleMove();
+        this.startup();
     }
     // Fonction qui insert le canvas :
     buildCanvas(){
@@ -31,41 +29,47 @@ class mobSign{
         </canvas>
         `));
     }
-    // Fonctions pour les event :
-    handleStart() {
-        // Click souris enfoncé sur le canvas, je dessine :
-        $(this.canvas).handleStart((e) => {
-            this.painting = true;
-            // Coordonnées de la souris :
-            var touches = e.changedTouches;
-            for(var i =0; i>touches.length; i++){
-                this.touchX = (touches[i].pageX - this.canvas[0].offsetLeft);
-                this.cursorY = (touches[i].pageY - this.canvas[0].offsetTop);
-            }
-        });
-
+    //-------------------Fonctions pour les event :-----------------------
+    // Fonction qui initialise les events de touch sur le canvas :
+    startup() {
+        var el = this.canvas[0];
+        el.addEventListener("touchstart", e => this.handleStart(e), false);
+        el.addEventListener("touchend", e => this.handleEnd(e), false);
+        el.addEventListener("touchmove", e => this.handleMove(e), false);
+      }
+    // 1er touch du canvas :
+    handleStart(e) {
+        // Je touche le canvas, je dessine :
+        this.painting = true;
+        // Coordonnées du touch :
+        var touches = e.changedTouches;
+        for(var i=0; i<touches.length; i++){
+            console.log(this);
+            this.canvas[0].touchX = (touches[i].pageX - this.canvas[0].offsetLeft);
+            this.touchY = (touches[i].pageY - this.canvas[0].offsetTop);
+        }
     }
     handleEnd() {
-        // Relachement du Click sur tout le document, j'arrête de dessiner :
-        $(this.canvas).handleEnd(() => {
-            this.painting = false;
-            this.started = false;
-        });
+        // Relachement du touch sur tout le document, j'arrête de dessiner :
+        this.painting = false;
+        this.started = false;
     }
-    HandleMove() {
-        // Mouvement de la souris sur le canvas :
-        $(this.canvas).HandleMove((e) => {
-            // Si je suis en train de dessiner (click souris enfoncé) :
-            if (this.painting) {
-                // Set Coordonnées de la souris :
-                var touches = e.changedTouches;
-                for(var i =0; i>touches.length; i++){
-                    this.touchX = (touches[i].pageX - this.canvas[0].offsetLeft) - 2;
-                    this.touchY = (touches[i].pageY - this.canvas[0].offsetTop) - 2;
-                    this.drawLine();
-                }
+    handleMove(e) {
+        // annule le silde sur le canvas :
+        e.preventDefault();
+        e.stopPropagation();
+        // Si je suis en train de dessiner (click souris enfoncé) :
+        if (this.painting) {
+            // Set Coordonnées de la souris :
+            var touches = e.changedTouches;
+            console.log(touches);
+            for(var i =0; i<touches.length; i++){
+                this.touchX = (touches[i].pageX - this.canvas[0].offsetLeft) - 2 - (touches[i].radiusX/2);
+                this.touchY = (touches[i].pageY - this.canvas[0].offsetTop) - 2 - (touches[i].radiusY/2);
+                console.log({x:this.touchX, y:this.touchY});
+                this.drawLine();
             }
-        });
+        }
     }
 
     // Fonction qui dessine une ligne :
@@ -73,12 +77,9 @@ class mobSign{
         // Si c'est le début, j'initialise
         if (!this.started) {
             // Je place mon curseur pour la première fois :
-            var touches = e.changedTouches;
-                for(var i =0; i>touches.length; i++){
-                    this.context.moveTo(this.rouchX, this.touchY);
-                    this.context.beginPath();
-                    this.started = true;
-                }
+            this.context.moveTo(this.touchX, this.touchY);
+            this.context.beginPath();
+            this.started = true;
         }
         // Sinon je dessine
         else {
