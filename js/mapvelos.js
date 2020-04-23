@@ -17,14 +17,15 @@ class FormStation{
     }
     buildForm(){
         $(this.parent).append($(`
-        <form id="form_bikes" onsubmit="submitForm(event)">
+        <form id="form_bikes" >
             <fieldset>
                 <legend>Réservez un vélo de cette station</legend>
                 <label for="name">Votre nom : </label>
-                <input type="text" name="name" id="name" placeholder="Votre nom" required onkeyup='javascript:isCharSet()'/><br/>
+                <input type="text" name="name" id="name" class="storage" placeholder="Votre nom" required/>
                 <label for="firstname"> Votre prénom : </label>
-                <input type="text" name="firstname" id="firstname" placeholder="Votre prénom" required onkeyup='javascript:isCharSet()'/><br/>
-                <input type="submit" name="submit" id="subForm" class="pop_res_but" value="Réservez !">
+                <input type="text" name="firstname" id="firstname" class="storage" placeholder="Votre prénom" required/><br/>
+                <input type="submit" name="submit" id="subForm" class="pop_res_but" class="button" value="Réservez !" onclick="rescan(event)">
+                <input type="submit" name="submit" id="mobsubForm" class="pop_res_but" class="button" value="Réservez !" onclick="mobrescan(event)">
             </fieldset>
         </form>
         `));
@@ -34,12 +35,26 @@ class FormStation{
 function clickbut(event){
     event.preventDefault();
     event.stopPropagation();
+    $('#resExpCont').hide();
     $('#form_container').show();
+    $('#form_container').css('display', 'flex');
     let stationNumber = $('.statname').attr('data-id');
     $('#form_container').html('');
     new FormStation($('#form_container'), window.geojson[stationNumber]);
 }
+/*Même fonction mais pour mobiles---------------------------------------------*/
+    function mobclickbut(event){
+        event.preventDefault();
+        event.stopPropagation();
+        $('#resExpCont').hide();
+        $('#mobform_container').show();
+        $('#mobform_container').css('display', 'flex');
+        let stationNumber = $('.statname').attr('data-id');
+        $('#mobform_container').html('');
+        new FormStation($('#mobform_container'), window.geojson[stationNumber]);
+    }
 
+/* Chargement de la map au load de la page-------------------------------------*/
 $(document).ready(function(){
     var mymap = L.map('map',
     {
@@ -77,7 +92,8 @@ $(document).ready(function(){
                 <p class="statstatus">La station est ${((window.geojson[i].status=='OPEN') ? 'ouverte' : 'fermée')}</p>
                 <p class="statbikes">Nombre de vélos : ${window.geojson[i].bike_stands}</p>
                 <p class="statavailable">Vélos disponibles : <span class='available_bikes'>${window.geojson[i].available_bikes}</span></p>
-                ${((window.geojson[i].available_bikes==0)?'' : '<button class="pop_res_but" onclick="clickbut(event)">Réserver</button>')}
+                ${((window.geojson[i].available_bikes==0)?'' : '<button id="markerBut" class="pop_res_but" onclick="clickbut(event)">Réserver</button>')}
+                ${((window.geojson[i].available_bikes==0)?'' : '<button id="mobileMarkerBut" class="pop_res_but" onclick="mobclickbut(event)">Réserver</button>')}
             `);
             marker.setIcon(veloicon[(window.geojson[i].available_bikes==0)? 'false': 'true']);
             cluster.addLayer(marker);

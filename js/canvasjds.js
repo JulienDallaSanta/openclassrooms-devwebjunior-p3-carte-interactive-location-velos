@@ -24,7 +24,7 @@ class Sign{
     // Fonction qui insert le canvas :
     buildCanvas(){
         $(this.parent).append($(`
-        <canvas id="canvas" >
+        <canvas id="canvas">
             <p>Désolé, votre navigateur ne supporte pas Canvas. Mettez-vous à jour</p>
         </canvas>
         `));
@@ -92,102 +92,114 @@ class Sign{
     }
 }
 
-function submitForm(event){
-    event.preventDefault();
-    event.stopPropagation();
-}
-
-
-function isCharSet(){
-    if (($('#name').value != "") || ($('#firstname').value != "")){
-        $('#subForm').disabled = false;
-    } else{
-        $('#subForm').disabled = true;
-    }
-    $('#subForm').onclick(rescan);
-}
-
-isCharSet();
-
 function rescan(event){
     event.preventDefault();
     event.stopPropagation();
-
-    $('#subForm').hide();
-
-    $('#form_container').append($(`
-        <div id="canvas_container">
-            <div id="canvas_message">
-                <p>Signez dans la case pour confirmer :</p>
+    var regex = /^[a-zâäàéèùêëîïôöçñ]+[^0-9]+$/i;
+    if (regex.test($('#name').val()) && regex.test($('#firstname').val())){
+        $('#subForm').disabled = false;
+        $('#subForm').hide();
+        $('#form_container').append($(`
+            <div id="canvas_container">
+                <div id="canvas_message">
+                    <p>Signez dans la case pour confirmer :</p>
+                </div>
+                <div id="canvas_div"></div>
+                <div id="canvas_confirm">
+                    <button type="submit" id="submit_res">Validez</button>
+                    <button type="reset" id="clear_canvas">Effacer</button>
+                </div>
             </div>
-            <div id="canvas_div"></div>
-            <div id="canvas_confirm">
-                <button type="submit" id="submit_res">Validez</button>
-                <button type="reset" id="clear_canvas">Effacer</button>
-            </div>
-        </div>
-    `));
+        `));
 
-    let maSignature = new Sign($('#canvas_div'), '300px', '150px');
+        let maSignature = new Sign($('#canvas_div'), '300px', '150px');
 
-    $('#clear_canvas').on("click", () => maSignature.clearCanvas());
-    $('#submit_res').click(() => {
-        $('#resCont').css('display', 'flex');
-        $('#canvas_confirm').html(`
-            <p id="merci">Merci !</p>
-        `);
-        $("#resCont").show();
-        //get canvas into blob && store it into a var
-        maSignature.canvas[0].toDataURL().replace(/^data:.+;base64,/, '');
-
-        //get filled datas && store it into vars
-        let nomForm = $("#name").val();
-        let prenomForm = $("#firstname").val();
-        let prenomNom = prenomForm + " " + nomForm;
-        console.log(prenomForm);
-        console.log(nomForm);
-        console.log(prenomNom);
-
-        //check signature && datas
-        $("#res_status_span").html("1");
-        $("#res_thx_span").text(prenomNom);
-        $("#data_station").append(`
-            <p>Vous venez de réservez un vélo à la station </p>
-            ${$("#formStatName").text()}
-        `);
-        $("#data_adresse").append(`
-            <p>située au </p>
-            ${$("#formAddress").text()}
-        `);
-        $("#data_time").text("Votre réservation s'annulera dans : ");
-        const timebase = new Date();
-        var timeout = new Date();
-        timeout.setTime(timebase.getTime() + (5*1000));
-        countdown();
-        function countdown(){
-            var now = new Date();
-            console.log(now);
-            var s = (timeout.getTime() - now.getTime()) /1000;
-            var m = Math.floor(s/60);
-            s -= m*60;
-            s = Math.floor(s);
-            $('#minutes').html('<strong class="timetext">'+m+'</strong><br/>Minute'+(m>1 ?'s':''));
-            $('#secondes').html('<strong class="timetext">'+s+'</strong><br/>Seconde'+(s>1 ?'s':''));
-            setTimeout(countdown,1000);
-            if(m==0 && s==0){
-                $('#decompte').hide();
-                resAbort();
-            }
-        }
-        function resAbort(){
-            $('#form_container').hide();
-            $('#res_thx').html(`
-            <p><strong>`+prenomNom+`</strong>,<br/> votre réservation vient d'être annulée.</p>
+        $('#clear_canvas').on("click", () => maSignature.clearCanvas());
+        $('#submit_res').click(() => {
+            $('#canvas_confirm').html(`
+                <p id="merci">Merci !</p>
             `);
-            $("#res_status_span").html("Pas de");
-        }
-        $('#decompte').show();
-        //save datas into cookies
-        //create countdown
-    });
+            $("#res_thx").show();
+            //création du container (visu sign + abort resa)
+            $("#resCont").append(`
+                <div id="res_sign_abort">
+                    <div id="show_sign">
+                        <button id="show_sign_but" class="data_button"><p>Visualiser votre signature</p></button>
+                        <div class="arrow-down"></div>
+                    </div>
+                    <div id="signImgCont">
+                        <img id="show_sign_img"></img>
+                    </div>
+                    <button id="abort" class="data_button"><p>Annuler la réservation</p></button>
+                </div>
+            `);
+            $("#signImgCont").hide();
+            $("#res_sign_abort").show();
+            $("#abort").on('click',()=>{
+                location.reload(true);
+                alert("L'annulation de votre réservation à bien été prise en compte.");
+            });
+            //get canvas into blob && store it into a var
+            let blobToData = maSignature.canvas[0].toDataURL();
+            localStorage.setItem('signature', maSignature.canvas[0]);
+
+            //get filled datas && store it into vars
+            let nomForm = localStorage.getItem('name');
+            let prenomForm = localStorage.getItem('firstname');;
+            let prenomNom = prenomForm + " " + nomForm;
+            console.log(prenomNom);
+
+            //check signature && datas
+            if($("#res_status_span").textContent = "Pas de"){
+                $("#res_status_span").html("1");
+            }else{
+                $("#res_status_span").textContent += 1;
+            }
+            $("#res_thx_span").text(prenomNom);
+            $("#data_station").append(`
+                <p>Vous venez de réservez un vélo à la station </p>
+                ${$("#formStatName").text()}
+            `);
+            $("#data_adresse").append(`
+                <p>située au </p>
+                ${$("#formAddress").text()}
+            `);
+            $("#data_time").text("Votre réservation s'annulera dans : ");
+            const timebase = new Date();
+            var timeout = new Date();
+            timeout.setTime(timebase.getTime() + (30*60*1000));
+            countdown();
+            $('#decompte').css("display", 'flex');
+            function countdown(){
+                var now = new Date();
+                var s = (timeout.getTime() - now.getTime()) /1000;
+                var m = Math.floor(s/60);
+                s -= m*60;
+                s = Math.floor(s);
+                $('#minutes').html('<strong class="timetext">'+m+'</strong><br/>Minute'+(m>1 ?'s':''));
+                $('#secondes').html('<strong class="timetext">'+s+'</strong><br/>Seconde'+(s>1 ?'s':''));
+                setTimeout(countdown,1000);
+                if(m==0 && s==0){
+                    location.reload(true);
+                    alert("Votre réservation vient d'expirer car le délai de 30 minutes est dépassé. Vous pouvez de nouveau réserver un vélo.");
+                }
+            }
+            //EVENT DE VISU/HIDE DE LA SIGNATURE AU CLICK DU BOUTON
+            const arrow = $(".arrow-down");
+            const mySign = $("#signImgCont");
+            $("#show_sign_img").attr('src', blobToData);
+            $("#show_sign").on("click", ()=>{
+                arrow.toggle();
+                mySign.toggle();
+                console.log(mySign.css('display'));
+            });
+        });
+    }else if(($('#name').val()) == undefined ||($('#firstname').val()) == undefined){
+        $('#subForm').disabled = true;
+        alert("Merci de remplir les 2 champs du formulaire de réservation.");
+    } else{
+        $('#subForm').disabled = true;
+        alert("Merci de remplir les 2 champs du formulaire de réservation.");
+    }
+    saveToLocalStorage();
 }

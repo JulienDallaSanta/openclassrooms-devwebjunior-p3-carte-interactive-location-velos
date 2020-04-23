@@ -1,41 +1,206 @@
 body{
+    min-height: 100%;
     margin: 0;
+    padding: 0;
     font-family: 'Roboto';
+}
+#mobiletopbtn{
+	position: fixed;
+	z-index: 600;
+	background: rgba(0, 0, 0, .5);
+	width: 4%;
+	height: auto;
+	text-align: center;
+	margin-left: 48%;
+	margin-top: 2%;
+}
+
+#mobiletopbtn a{
+	text-decoration: none;
+	color: white;
+	font-size: 35px;
+}
+#rgpd{
+    background-color: white;
+    width: 100%;
+    padding: 1%;
+    opacity: 0.7;
+    position: fixed;
+    bottom: 0%;
+    z-index: 400;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#rgpd p{
+    text-align: center;
+}
+#rgpdBut{
+    display: block;
+    margin: 0 auto;
+    font-size: 0.8em;
+    width: 9%;
+    padding: 0.5% 0.8%;
+    background-color: white;
+    color: rgb(20, 172, 20);
+    font-weight: bold;
+    border-radius: 10%;
+    border:solid 1px rgb(20, 172, 20);
+    box-shadow: none;
+}
+#rgpdBut:hover{
+    background-color: rgb(20, 172, 20);
+    color: white;
+}
+@media screen and (min-width:769px){
+	#mobiletopbtn{
+		display: none;
+    }
+    #rgpd{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 100vh;
+        background-color: white;
+        opacity: 0.95;
+        justify-content: center;
+    }
+    #rgpd h4{
+        font-size: 200%;
+    }
+    #rgpd p{
+        width: 55%;
+        height: 40%;
+        padding: 2%;
+        font-size: 200%;
+        background-color: #F0C064;
+        color: white;
+        text-align: left;
+    }
+    #rgpd p a{
+        color: forestgreen;
+    }
+    #rgpdBut{
+        width: 30%;
+        height: 10%;
+        font-size: 200%;
+    }
+}
+@media screen and (max-width:576px){
+    #mobiletopbtn{
+        width: 6%;
+        height: 4%;
+    }
 }
 /*-------------------------------------HEADER---------------------------------------------*/
 #header{
+    z-index: 200;
     background-color: white;
-    padding: 1.5%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+    padding: 15px 100px;
+    width: 100%;
+    height: 5em;
+    box-sizing: border-box;
 }
 #header img{
-    width: 15%;
+    width: 8%;
+    float: left;
 }
-#header div{
-    width: 28%;
+header nav{
+    float: right;
+    color: white;
+    height: 50%;
+}
+header nav ul{
+    margin: 0em;
+    padding: 0em;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
 }
-#header a{
+header nav ul li{
+    list-style: none;
+}
+header nav ul li a{
     font-family: sans-serif, "Roboto";
-	margin-top: 1%;
-	font-weight: bold;
-    color:rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    height: 50px;
+    line-height: 50px;
+    padding: 0 20px;
+    color: #F0C064;
     text-decoration: none;
 }
-#nav{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-}
-#nav a:hover, #nav a:focus{
-	color: rgba(0, 0, 0, 1);
+
+header nav ul li:hover, header nav ul li.active{
+    background-color: #F0C064;
 	font-weight: bold;
 	text-decoration: none;
+}
+header nav ul li:hover a, header nav ul li.active a{
+    color: white;
+}
+.menu-toggle{
+    color:black;
+    float: right;
+    line-height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+    display: none;
+}
+@media screen and (max-width:1200px){
+    #header img{
+        width:13%;
+    }
+}
+@media screen and (max-width:990px){
+    header{
+        padding: 20px!important;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items:center;
+    }
+    .menu-toggle{
+        display: block;
+    }
+    #header img{
+        width:18%;
+        margin-right: 40%;
+    }
+    header nav{
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 50px);
+        background-color: #333;
+        top: 98px;
+        left: -100%;
+        transition: 0.5s;
+
+    }
+    header nav.active{
+        left: 0;
+    }
+    header nav ul{
+        display: block;
+        text-align: center;
+    }
+    header nav ul li{
+        height: 40px;
+    }
+    header nav ul li{
+        border-bottom: 1px solid rgb(255, 255, 255,.7);
+        font-size: 100%;
+
+    }
+}
+@media screen and (max-width:768px){
+    #header{
+        justify-content: space-between;
+    }
+    #header img{
+        width:20%;
+    }
+    nav.active{
+        z-index: 500;
+    }
 }
 /*-------------------------------------CARROUSEL---------------------------------------------*/
 #carrousel{
@@ -74,28 +239,27 @@ body{
     color: white;
     font-family: 'Roboto', sans-serif;
     background-color: rgba(0, 0, 0, 0.8);
-    height:91.5%;
+    height:100%;
     width: 21%;
     position: absolute;
     left:5%;
     top: 0%;
-    padding: 1.5em;
+    padding: 0 1.5em;
     margin: 0;
     margin-block-start: 0em;
     margin-block-end: 0em;
+    font-size: 145%;
 }
 
 .ph3{
     font-weight: bold;
-    font-size: 2em;
 }
 
 .ph4{
-    font-size: 1.5em;
     line-height: 1.5em;
 }
 
-/*Tutorial slider controls*/
+/*slider controls*/
 
 #carrousel button {
     border:none;
@@ -120,6 +284,95 @@ body{
     flex-direction: row;
     justify-content: space-between
 }
+@media screen and (max-width:1200px){
+    .slide p{
+        font-size: 108%;
+    }
+    #play_stop{
+        width: 9%;
+    }
+}
+@media screen and (max-width:992px){
+    .slide_p{
+        font-size: 63%;
+    }
+    #play_stop{
+        width: 10%;
+    }
+}
+@media screen and (max-width:768px){
+    #carrousel{
+        display: none;
+    }
+}
+/*--------------Mobile Slider----------------*/
+#mobileSlider{
+    display: none;
+    width: 100%;
+    height: auto;
+}
+#mobileSliderSlides, .mobileSlides{
+    width: 100%;
+    height: auto;
+}
+.mobileSlidesImg{
+    width: 100%;
+    height: auto;
+}
+.mobileSlideP{
+    color: white;
+    font-size: 300%;
+    text-align: center;
+    width: 80%;
+    padding: 2%;
+    position: absolute;
+    left: 10%;
+    top: 28vh;
+}
+#mobileSliderButs{
+    width: 30%;
+    opacity: 0.4;
+    position: absolute;
+    left: 2.5%;
+    top: 10vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+#mobileSliderButs button{
+    border:solid 1px white;
+    border-radius: 2%;
+    -webkit-box-shadow: 14px 12px 19px 8px rgba(0,0,0,0.75);
+    -moz-box-shadow: 14px 12px 19px 8px rgba(0,0,0,0.75);
+    box-shadow: 14px 12px 19px 0px rgba(0,0,0,0.75);
+    margin-right: 10%;
+    width: 40%;
+    height: 100%;
+	background-color: transparent;
+    color: white;
+    padding: 5%;
+    text-align: center;
+}
+#mobileSliderButs button i{
+    font-size: 200%;
+}
+@media screen and (max-width:768px){
+    #mobileSlider{
+        display: block;
+    }
+}
+@media screen and (max-width:576px){
+    #mobileSliderButs{
+        top: 11vh;
+    }
+    #mobileSliderButs button i{
+        font-size: 150%;
+    }
+    .mobileSlideP{
+        font-size: 200%;
+        top: 22vh;
+    }
+}
 /*-------------------------------------MAP---------------------------------------------*/
 #map_container{
     height: 50em;
@@ -131,28 +384,6 @@ body{
     position: relative;
     height: 100%;
     width: 100%;
-}
-#buttons {
-    position: absolute;
-    left: 40%;
-    width: 20%;
-    height: 3rem;
-    margin: 0 auto;
-    }
-.button {
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-    width: 20%;
-    padding: 8px;
-    border-radius: 3px;
-    margin-top: 10px;
-    font-size: 12px;
-    text-align: center;
-    color: #fff;
-    background: #ee8a65;
-    font-family: sans-serif;
-    font-weight: bold;
 }
 .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
 	-webkit-transition: -webkit-transform 0.25s ease-out, opacity 0.25s ease-in;
@@ -192,6 +423,9 @@ max-width: 200px;
 text-align: center;
 font-family: 'Open Sans', sans-serif;
 }
+#mobileMarkerBut{
+    display: none;
+}
 .pop_res_but{
     display: block;
     margin: 0 auto;
@@ -216,17 +450,21 @@ font-family: 'Open Sans', sans-serif;
     min-width: 330px;
     max-width: 330px;
     display: none;
+    flex-direction: column;
 }
-#info-station, #form_bikes, #canvas_container{
+#mobform_container{
+    display: none;
+}
+#info-station, #form_bikes, #canvas_container, #mobcanvas_container{
     margin: 0 15px;
 }
 input{
     margin-bottom: 15px;
 }
-#canvas_container{
-
+#mobsubForm{
+    display: none;
 }
-#canvas_div{
+#canvas_div, #mobcanvas_div{
     border: 1px solid black;
     margin-bottom: 15px;
     min-height: 150px;
@@ -236,7 +474,7 @@ input{
     flex-direction: row;
     justify-content: space-around;
 }
-#submit_res, #clear_canvas{
+#submit_res, #clear_canvas, #mobsubmit_res, #mobclear_canvas{
     display: block;
     margin: 0 auto;
     height: 100%;
@@ -248,11 +486,11 @@ input{
     border:solid 1px;
     box-shadow: none;
 }
-#submit_res{
+#submit_res, #mobsubmit_res{
     color: #093;
     border-color: #093;
 }
-#clear_canvas{
+#clear_canvas, #mobclear_canvas{
     color: #c03;
     border-color: #c03;
 }
@@ -303,15 +541,125 @@ input{
 #canvas-sign{
     border: solid 1px black;
 }
+@media screen and (max-width:1200px){
+}
+@media screen and (max-width:992px){
+}
+@media screen and (max-width:768px){
+    #map_container{
+        flex-direction: column;
+        height: 50vh;
+    }
+    .leaflet-control-container{
+        position: relative;
+        top: 50%;
+    }
+    #markerBut{
+        display: none;
+    }
+    #mobileMarkerBut{
+        display: block;
+    }
+    #form_container{
+        display: none;
+    }
+    #mobform_container{
+        width: 100% !important;
+        max-height: 41vh;
+        max-width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        flex-wrap: wrap;
+    }
+    #info-station{
+        max-width: 55%;
+    }
+    #form_bikes{
+        margin: 2%;
+    }
+    fieldset{
+        display: flex;
+        flex-direction: row;
+    }
+    #subForm{
+        display: none;
+    }
+    #mobsubForm{
+        display: block;
+    }
+    #mobcanvas_container{
+        width: 100%;
+        margin: 0 2% 2% 2%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+    #mobcanvas_message{
+        width: 100%;
+    }
+    #mobcanvas_div{
+        width: 60%;
+    }
+    #mobcanvas_confirm{
+        width: 25%;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    #mobsubmit_res, #mobclear_canvas{
+        width: 100%;
+        height: 30%;
+        font-size: 150%;
+        margin: auto;
+    }
+    #mobcanvas_confirm p{
+        margin-top: 30%;
+    }
+}
+@media screen and (max-width:576px){
+    #info-station, #form_bikes, #mobcanvas_container{
+        max-width: 100% !important;
+        width: 95%;
+    }
+    #info-station{
+        text-align: center;
+    }
+    fieldset{
+        display: block;
+    }
+    input{
+        width:65%;
+    }
+    #mobform_container{
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        max-height: 100vh;
+    }
+    #mobsubForm{
+        width: 100px;
+    }
+    #mobcanvas_div, #mobcanvas{
+        width: 100%;
+    }
+    #mobcanvas_confirm{
+        height: 15vh;
+    }
+}
 /*-------------------------------------RESERVATIONS---------------------------------------------*/
 #resCont{
     background-color: #454545;
-    display: none;
+    display: flex;
     flex-direction: row;
     justify-content: space-around;
 }
+#resExpCont{
+    display: none;
+    padding: 1%;;
+}
 #res, #res_sign_abort{
-    display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
@@ -319,7 +667,11 @@ input{
     font-family: 'Roboto';
     margin:auto;
 }
+#res_sign_abort{
+    display: none;
+}
 #res{
+    display: flex;
     width: 70%;
 }
 #res_sign_abort{
@@ -343,6 +695,7 @@ input{
     margin-block-end: 0.5em;
 }
 #res_thx{
+    display: none;
     padding-top: 1em;
     padding-bottom: 1em;
     border-color: #F0C064;
@@ -363,22 +716,30 @@ input{
 }
 #decompte{
     display: none;
+    flex-direction: row;
+    justify-content: center;
 }
 .decompteBloc{
     height: 5em;
     width: 5em;
     background-color: #F0C064;
     color: #454545;
-    float: left;
+    /*float: left;*/
     padding: 1%;
 }
 #minutes{
-    margin-left: 27%;
+    /*margin-left: 27%;*/
     margin-right: 10%;
 }
 .timetext{
     font-weight: bold;
     font-size: 3em;
+}
+#resExpCont p{
+    text-align: center;
+    font-size: larger;
+    color: #F0C064;
+    line-height: 2em;
 }
 #show_sign_but, #abort{
     border-radius:0.5em;
@@ -390,12 +751,6 @@ input{
 #show_sign, #abort{
     width: 70%;
 }
-#show_sign{
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-}
 .arrow-down{
     display: none;
     width: 0;
@@ -403,6 +758,8 @@ input{
     border-right: 1.5em solid transparent;
     border-left: 1.5em solid transparent;
     border-top: 1em solid white;
+    position: relative;
+    left: 40%;
 }
 #show_sign_but{
     width: 100%;
@@ -417,14 +774,18 @@ input{
     background-color: rgb(255,255,255);
     color:rgb(69, 69, 69);
 }
-#show_sign:hover .arrow-down{
-    display: block;
-}
 #show_sign:hover button p{
     font-weight: bold;
 }
+#signImgCont{
+    background-color: white;
+    width: 70%;
+    height: 125px;
+    text-align: center;
+    margin: 2% 0% 5% 0%;
+}
 #show_sign_img{
-    display: none;
+    width: 100%;
 }
 #abort{
     background-color: firebrick;
@@ -432,4 +793,27 @@ input{
 }
 #abort:hover{
     background-color: darkred;
+}
+@media screen and (max-width:1200px){
+    #res_status, #res_thx{
+        width: 100%;
+    }
+    #decompte{
+
+    }
+}
+@media screen and (max-width:992px){
+
+}
+@media screen and (max-width:768px){
+
+}
+@media screen and (max-width:576px){
+
+}
+/*-------------------------------------FOOTER---------------------------------------------*/
+footer{
+    background-color: #F0C064;
+    text-align: center;
+    padding: 0.5%;
 }
