@@ -24,13 +24,29 @@
     </head>
 
     <body>
+        <!--Modal Box-->
+        <div class="bg-modal-end">
+            <div class="modal-content-end">
+                <div class="close-end">+</div>
+            <p class="modal-p-end">Votre réservation vient d'expirer car le délai de 30 minutes est dépassé. Vous pouvez de nouveau réserver un vélo.</p>
+            </div>
+        </div>
+        <div class="bg-modal-abort">
+            <div class="modal-content-abort">
+                <div class="close-abort">+</div>
+            <p class="modal-p-abort">L'annulation de votre réservation à bien été prise en compte.</p>
+            </div>
+        </div>
+
+        <div id="mobform_container"><div id="mobform_content"><!-- Encart de réservation pour mobile--></div></div>
+
         <div id="mobiletopbtn"><a href="#accueil">^</a></div>
         <header id="header">
             <img id="logo" src="img/maison-du-velo.png"/>
             <nav>
                 <ul>
-                    <li id="li1"><a href="#body"><i class="fas fa-home fa-lg"></i></a></li>
-                    <li id="li2"><a href="#map_container"><span>STATIONS</span></a></li>
+                    <li id="li1"><a href="#"><i class="fas fa-home fa-lg"></i></a></li>
+                    <li id="li2"><a href="#map"><span>STATIONS</span></a></li>
                     <li id="li3"><a href="#resCont"><span>RÉSERVATIONS</span></a></li>
                 </ul>
             </nav>
@@ -117,7 +133,7 @@
             <div id='map'></div>
             <div id="form_container"><!-- Encart de réservation --></div>
         </div>
-        <div id="mobform_container"><!-- Encart de réservation pour mobile--></div>
+
         <section id="resCont">
             <div id="res">
                 <h2>Résumé de votre réservation</h2>

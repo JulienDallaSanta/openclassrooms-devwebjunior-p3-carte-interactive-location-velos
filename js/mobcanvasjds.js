@@ -64,9 +64,11 @@ class mobSign{
             var touches = e.changedTouches;
             console.log(touches);
             for(var i =0; i<touches.length; i++){
-                this.touchX = (touches[i].pageX - this.canvas[0].offsetLeft) - 2 - (touches[i].radiusX/2);
-                this.touchY = (touches[i].pageY - this.canvas[0].offsetTop) - 2 - (touches[i].radiusY/2);
-                console.log({x:this.touchX, y:this.touchY});
+                this.touchX = (touches[i].clientX - this.canvas[0].offsetLeft) - 2 - (touches[i].radiusX/2);
+                console.log(touches[i].pageX, this.canvas[0].offsetLeft);
+                this.touchY = (touches[i].clientY - this.canvas[0].offsetTop) - 2 - (touches[i].radiusY/2);
+                //console.log({x:this.touchX, y:this.touchY});
+                console.log(touches[i].pageY, this.canvas[0].offsetTop);
                 this.drawLine();
             }
         }
@@ -104,14 +106,32 @@ class mobSign{
     }
 }
 
+function popUpAbort(){
+    $('.bg-modal-abort').css('display', 'flex');
+    $('.close-abort').on('click', ()=>{
+        $('.bg-modal-abort').css('display', 'none');
+        location.reload(true);
+    });
+}
+function popUpEnd(){
+    $('.bg-modal-end').css('display', 'flex');
+    $('.close-end').on('click', ()=>{
+        $('.bg-modal-end').css('display', 'none');
+        location.reload(true);
+    });
+}
+
 function mobrescan(event){
     event.preventDefault();
     event.stopPropagation();
+    $("#modal-content1").css('left', '0');
+    $("#modal-content2").css('left', '0');
+    $(".popup-arrow").css('right', '-12%');
     var regex = /^[a-zâäàéèùêëîïôöçñ]+[^0-9]+$/i;
     if (regex.test($('#name').val()) && regex.test($('#firstname').val())){
         $('#mobsubForm').disabled = false;
         $('#mobsubForm').hide();
-        $('#mobform_container').append($(`
+        $('#mobform_content').append($(`
             <div id="mobcanvas_container">
                 <div id="mobcanvas_message">
                     <p>Signez dans la case pour confirmer :</p>
@@ -128,9 +148,7 @@ function mobrescan(event){
 
         $('#mobclear_canvas').on("click", () => maSignature.clearCanvas());
         $('#mobsubmit_res').click(() => {
-            $('#mobcanvas_confirm').html(`
-                <p id="merci">Merci !</p>
-            `);
+            $('#mobform_container').hide();
             $("#res_thx").show();
             //création du container (visu sign + abort resa)
             $("#resCont").append(`
@@ -207,12 +225,25 @@ function mobrescan(event){
                 console.log(mySign.css('display'));
             });
         });
-    }else if(($('#name').val()) == undefined ||($('#firstname').val()) == undefined){
-        $('#mobsubForm').disabled = true;
-        alert("Merci de remplir les 2 champs du formulaire de réservation.");
-    } else{
-        $('#mobsubForm').disabled = true;
-        alert("Merci de remplir les 2 champs du formulaire de réservation.");
+    }else if(!regex.test($('#name').val()) && !regex.test($('#firstname').val())){
+        $('#modal-content1').css('display', 'flex');
+        $('#close1').on('click', ()=>{
+            $('#modal-content1').css('display', 'none');
+        });
+        $('#modal-content2').css('display', 'flex');
+        $('#close2').on('click', ()=>{
+            $('#modal-content2').css('display', 'none');
+        });
+    }else if(!regex.test($('#name').val())){
+        $('#modal-content1').css('display', 'flex');
+        $('#close1').on('click', ()=>{
+            $('#modal-content1').css('display', 'none');
+        });
+    }else if(!regex.test($('#firstname').val())){
+        $('#modal-content2').css('display', 'flex');
+        $('#close2').on('click', ()=>{
+            $('#modal-content2').css('display', 'none');
+        });
     }
     saveToLocalStorage();
 }

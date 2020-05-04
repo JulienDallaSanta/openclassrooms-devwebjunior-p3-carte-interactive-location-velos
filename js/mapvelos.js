@@ -7,6 +7,8 @@ class FormStation{
     }
     buildHeader(){
         $(this.parent).append($(`
+        <div id="closeform">+</div>
+        <h2>Vous souhaitez réserver un vélo à la station :</h2>
         <div id="info-station">
             <p id='formStatName'>${this.station.name}</p>
             <p>Adresse :</p>
@@ -19,6 +21,18 @@ class FormStation{
         $(this.parent).append($(`
         <form id="form_bikes" >
             <fieldset>
+
+                <div id="modal-content1">
+                    <div id="close1">+</div>
+                    <p class="modal-p">Veuillez renseigner votre nom.</p>
+                    <div class='popup-arrow'></div>
+                </div>
+                <div id="modal-content2">
+                    <div id="close2">+</div>
+                    <p class="modal-p">Veuillez renseigner votre prénom.</p>
+                    <div class='popup-arrow'></div>
+                </div>
+
                 <legend>Réservez un vélo de cette station</legend>
                 <label for="name">Votre nom : </label>
                 <input type="text" name="name" id="name" class="storage" placeholder="Votre nom" required/>
@@ -50,8 +64,11 @@ function clickbut(event){
         $('#mobform_container').show();
         $('#mobform_container').css('display', 'flex');
         let stationNumber = $('.statname').attr('data-id');
-        $('#mobform_container').html('');
-        new FormStation($('#mobform_container'), window.geojson[stationNumber]);
+        $('#mobform_content').html('');
+        new FormStation($('#mobform_content'), window.geojson[stationNumber]);
+        $('#closeform').on('click',()=>{
+            $('#mobform_container').hide();
+        });
     }
 
 /* Chargement de la map au load de la page-------------------------------------*/

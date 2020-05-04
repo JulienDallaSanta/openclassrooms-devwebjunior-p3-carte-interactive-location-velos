@@ -92,6 +92,21 @@ class Sign{
     }
 }
 
+function popUpAbort(){
+    $('.bg-modal-abort').css('display', 'flex');
+    $('.close-abort').on('click', ()=>{
+        $('.bg-modal-abort').css('display', 'none');
+        location.reload(true);
+    });
+}
+function popUpEnd(){
+    $('.bg-modal-end').css('display', 'flex');
+    $('.close-end').on('click', ()=>{
+        $('.bg-modal-end').css('display', 'none');
+        location.reload(true);
+    });
+}
+
 function rescan(event){
     event.preventDefault();
     event.stopPropagation();
@@ -136,8 +151,7 @@ function rescan(event){
             $("#signImgCont").hide();
             $("#res_sign_abort").show();
             $("#abort").on('click',()=>{
-                location.reload(true);
-                alert("L'annulation de votre réservation à bien été prise en compte.");
+                popUpAbort();
             });
             //get canvas into blob && store it into a var
             let blobToData = maSignature.canvas[0].toDataURL();
@@ -180,8 +194,7 @@ function rescan(event){
                 $('#secondes').html('<strong class="timetext">'+s+'</strong><br/>Seconde'+(s>1 ?'s':''));
                 setTimeout(countdown,1000);
                 if(m==0 && s==0){
-                    location.reload(true);
-                    alert("Votre réservation vient d'expirer car le délai de 30 minutes est dépassé. Vous pouvez de nouveau réserver un vélo.");
+                    popUpEnd();
                 }
             }
             //EVENT DE VISU/HIDE DE LA SIGNATURE AU CLICK DU BOUTON
@@ -194,12 +207,25 @@ function rescan(event){
                 console.log(mySign.css('display'));
             });
         });
-    }else if(($('#name').val()) == undefined ||($('#firstname').val()) == undefined){
-        $('#subForm').disabled = true;
-        alert("Merci de remplir les 2 champs du formulaire de réservation.");
-    } else{
-        $('#subForm').disabled = true;
-        alert("Merci de remplir les 2 champs du formulaire de réservation.");
+    }else if(!regex.test($('#name').val()) && !regex.test($('#firstname').val())){
+        $('#modal-content1').css('display', 'flex');
+        $('#close1').on('click', ()=>{
+            $('#modal-content1').css('display', 'none');
+        });
+        $('#modal-content2').css('display', 'flex');
+        $('#close2').on('click', ()=>{
+            $('#modal-content2').css('display', 'none');
+        });
+    }else if(!regex.test($('#name').val())){
+        $('#modal-content1').css('display', 'flex');
+        $('#close1').on('click', ()=>{
+            $('#modal-content1').css('display', 'none');
+        });
+    }else if(!regex.test($('#firstname').val())){
+        $('#modal-content2').css('display', 'flex');
+        $('#close2').on('click', ()=>{
+            $('#modal-content2').css('display', 'none');
+        });
     }
     saveToLocalStorage();
 }
