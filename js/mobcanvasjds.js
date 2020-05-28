@@ -55,7 +55,7 @@ class mobSign{
         this.started = false;
     }
     handleMove(e) {
-        // annule le silde sur le canvas :
+        // annule le slide sur le canvas :
         e.preventDefault();
         e.stopPropagation();
         // Si je suis en train de dessiner (click souris enfoncé) :
@@ -130,7 +130,7 @@ function mobrescan(event){
     var regex = /^[a-zâäàéèùêëîïôöçñ]+[^0-9]+$/i;
     if (regex.test($('#name').val()) && regex.test($('#firstname').val())){
         $('#mobsubForm').disabled = false;
-        $('#mobsubForm').hide();
+        $('#form_bikes').hide();
         $('#mobform_content').append($(`
             <div id="mobcanvas_container">
                 <div id="mobcanvas_message">
@@ -150,6 +150,7 @@ function mobrescan(event){
         $('#mobsubmit_res').click(() => {
             $('#mobform_container').hide();
             $("#res_thx").show();
+            window.location='#resCont';
             //création du container (visu sign + abort resa)
             $("#resCont").append(`
                 <div id="res_sign_abort">
@@ -166,8 +167,7 @@ function mobrescan(event){
             $("#signImgCont").hide();
             $("#res_sign_abort").show();
             $("#abort").on('click',()=>{
-                location.reload(true);
-                alert("L'annulation de votre réservation à bien été prise en compte.");
+                popUpAbort();
             });
             //get canvas into blob && store it into a var
             let blobToData = maSignature.canvas[0].toDataURL();
@@ -211,8 +211,7 @@ function mobrescan(event){
                 $('#secondes').html('<strong class="timetext">'+s+'</strong><br/>Seconde'+(s>1 ?'s':''));
                 setTimeout(countdown,1000);
                 if(m==0 && s==0){
-                    location.reload(true);
-                    alert("Votre réservation vient d'expirer car le délai de 30 minutes est dépassé. Vous pouvez de nouveau réserver un vélo.");
+                    popUpEnd();
                 }
             }
             //EVENT DE VISU/HIDE DE LA SIGNATURE AU CLICK DU BOUTON

@@ -4,6 +4,11 @@ body{
     padding: 0;
     font-family: 'Roboto';
 }
+@media screen and (max-width:768px){
+    body{
+        padding-top: 5em;
+    }
+}
 /*------------------------Modal Box-------------------------*/
 #modal-content1, #modal-content2{
     width: 40%;
@@ -19,7 +24,7 @@ body{
     justify-content: center;
     align-items: center;
     display: none;
-    z-index: 1003;
+    z-index: 6;
 }
 #modal-content2{
     top: 40%;
@@ -57,7 +62,7 @@ body{
     justify-content: center;
     align-items: center;
     display: none;
-    z-index: 1003;
+    z-index: 6;
 
 }
 .modal-content-abort,.modal-content-end{
@@ -80,14 +85,14 @@ body{
 }
 /*------------------------RGPD & BacktoTopButton-------------------------*/
 #mobiletopbtn{
-	position: fixed;
-	z-index: 600;
+    position: fixed;
+	z-index: 8;
 	background: rgba(0, 0, 0, .5);
 	width: 4%;
 	height: auto;
 	text-align: center;
 	margin-left: 48%;
-	margin-top: 2%;
+	top: 2%;
 }
 
 #mobiletopbtn a{
@@ -102,7 +107,7 @@ body{
     opacity: 0.7;
     position: fixed;
     bottom: 0%;
-    z-index: 400;
+    z-index: 8;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,7 +175,7 @@ body{
 }
 /*-------------------------------------HEADER---------------------------------------------*/
 #header{
-    z-index: 200;
+    z-index: 2;
     background-color: white;
     padding: 15px 100px;
     width: 100%;
@@ -269,12 +274,21 @@ header nav ul li:hover a, header nav ul li.active a{
 @media screen and (max-width:768px){
     #header{
         justify-content: space-between;
+        position: fixed;
+        top: 0;
+        z-index: 7;
     }
     #header img{
         width:20%;
     }
     nav.active{
-        z-index: 500;
+        z-index: 7;
+        top: 100%;
+    }
+}
+@media screen and (max-width:576px){
+    #header img{
+        width:40%;
     }
 }
 /*-------------------------------------CARROUSEL---------------------------------------------*/
@@ -453,11 +467,13 @@ header nav ul li:hover a, header nav ul li.active a{
     width: 100%;
     display: flex;
     flex-direction: row;
+    z-index: 3;
 }
 #map {
     position: relative;
     height: 100%;
     width: 100%;
+    z-index: 3;
 }
 .leaflet-cluster-anim .leaflet-marker-icon, .leaflet-cluster-anim .leaflet-marker-shadow {
 	-webkit-transition: -webkit-transform 0.25s ease-out, opacity 0.25s ease-in;
@@ -534,14 +550,16 @@ font-family: 'Open Sans', sans-serif;
     color: #F0C064;
 }
 #mobform_container{
+    overflow: scroll;
     display: none;
     min-width: 100%!important;
     min-height: 100%!important;
     background-color: rgba(0,0,0,0.7);
     position: fixed;
-    z-index: 1002;
+    z-index: 5;
 }
 #mobform_content{
+    overflow: scroll;
     width: 90%;
     background-color: white;
     display: flex;
@@ -656,7 +674,7 @@ input{
 @media screen and (max-width:768px){
     #map_container{
         flex-direction: column;
-        height: 50vh;
+        height: 100vh;
     }
     .leaflet-control-container{
         position: relative;
@@ -725,9 +743,12 @@ input{
     #mobform_container h2{
         text-align: center;
     }
-    #info-station, #form_bikes, #mobcanvas_container{
+    #info-station, #form_bikes{
         max-width: 100% !important;
         width: 95%;
+    }
+    #mobcanvas_container{
+        max-width: 100% !important;
     }
     #info-station{
         text-align: center;
@@ -742,6 +763,7 @@ input{
         height: 1rem;
     }
     #mobform_content{
+        padding: 2%;
         flex-direction: column;
         flex-wrap: nowrap;
         justify-content: center;
@@ -750,8 +772,25 @@ input{
     #mobsubForm{
         width: 100px;
     }
+    #mobcanvas_div{
+        width: 100%;
+        height: 50%;
+        margin-right: 0;
+        min-height: 0;
+    }
+    #mobcanvas{
+        width: 100%;
+    }
     #mobcanvas_confirm{
-        height: 5%;
+        width: 100%;
+        height: 15%;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    #mobsubmit_res, #mobclear_canvas{
+        margin: 0em;
+        height: 100%;
+        width: 45%;
     }
 }
 /*-------------------------------------RESERVATIONS---------------------------------------------*/
@@ -886,7 +925,6 @@ input{
 #signImgCont{
     background-color: white;
     width: 70%;
-    height: 125px;
     text-align: center;
     margin: 2% 0% 5% 0%;
 }
@@ -904,18 +942,37 @@ input{
     #res_status, #res_thx{
         width: 100%;
     }
-    #decompte{
-
-    }
 }
 @media screen and (max-width:992px){
+    #resCont{
+        flex-direction: column;
+    }
+    #res_sign_abort{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding-left: 0em;
+}
+    #show_sign, #abort, #signImgCont{
+    width: 40%;
+    }
 
 }
 @media screen and (max-width:768px){
 
 }
 @media screen and (max-width:576px){
-
+    #res h2{
+        text-align: center;
+    }
+    #res_sign_abort{
+        padding-top: 0;
+    }
+    #show_sign, #abort, #signImgCont{
+        width: 60%;
+    }
 }
 /*-------------------------------------FOOTER---------------------------------------------*/
 footer{

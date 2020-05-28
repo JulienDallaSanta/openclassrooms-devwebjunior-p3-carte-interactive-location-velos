@@ -3,11 +3,11 @@ var Slider = {
     currentIndex: 0,
 
     init: function () {
-        Slider.autoSlide();
-        Slider.playAutoClick();
-        Slider.nextSlideOnClick();
-        Slider.prevSlideOnClick();
-        Slider.changeSlideOnKeypress();
+        this.autoSlide();
+        this.playAutoClick();
+        this.nextSlideOnClick();
+        this.prevSlideOnClick();
+        this.changeSlideOnKeypress();
     },
 
     // Display the current slide

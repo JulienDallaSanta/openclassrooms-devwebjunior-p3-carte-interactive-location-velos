@@ -135,6 +135,7 @@ function rescan(event){
                 <p id="merci">Merci !</p>
             `);
             $("#res_thx").show();
+            window.location='#resCont';
             //création du container (visu sign + abort resa)
             $("#resCont").append(`
                 <div id="res_sign_abort">
