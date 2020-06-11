@@ -101,69 +101,67 @@ body{
 	font-size: 35px;
 }
 #rgpd{
-    background-color: white;
-    width: 100%;
-    padding: 1%;
-    opacity: 0.7;
     position: fixed;
-    bottom: 0%;
+    background-color: black;
+    opacity: 0.7;
     z-index: 8;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
+#rgpd h4{
+    margin: 0;
+}
+#rgpdContent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+}
 #rgpd p{
     text-align: center;
 }
-#rgpdBut{
-    display: block;
-    margin: 0 auto;
-    font-size: 0.8em;
-    width: 9%;
-    padding: 0.5% 0.8%;
-    background-color: white;
+.fa-check-circle{
     color: rgb(20, 172, 20);
-    font-weight: bold;
-    border-radius: 10%;
-    border:solid 1px rgb(20, 172, 20);
-    box-shadow: none;
 }
-#rgpdBut:hover{
-    background-color: rgb(20, 172, 20);
-    color: white;
+.fa-check-circle:hover, .fa-times-circle:hover{
+    opacity: 1;
 }
-@media screen and (min-width:769px){
+.fa-times-circle{
+    color: #CC0033;
+}
+.fa-check-circle, .fa-times-circle{
+    opacity: 0.5;
+    margin: 0;
+}
+
+@media screen and (min-width:768px){
 	#mobiletopbtn{
 		display: none;
     }
     #rgpd{
-        position: fixed;
-        top: 0;
+        padding: 2% 0;
+        bottom: 0;
         left: 0;
         width: 100%;
-        min-height: 100vh;
-        background-color: white;
-        opacity: 0.95;
+        height: 7%;
+        opacity: 0.8;
         justify-content: center;
     }
     #rgpd h4{
-        font-size: 200%;
+        font-size: 150%;
+        color: white;
+        margin-top: 1em;
     }
     #rgpd p{
-        width: 55%;
-        height: 40%;
-        padding: 2%;
-        font-size: 200%;
-        background-color: #F0C064;
+        font-size: 120%;
         color: white;
-        text-align: left;
     }
     #rgpd p a{
         color: forestgreen;
     }
-    #rgpdBut{
-        width: 30%;
-        height: 10%;
+    .fa-check-circle, .fa-times-circle{
         font-size: 200%;
     }
 }
@@ -742,6 +740,7 @@ input{
 @media screen and (max-width:576px){
     #mobform_container h2{
         text-align: center;
+        width: 75%;
     }
     #info-station, #form_bikes{
         max-width: 100% !important;

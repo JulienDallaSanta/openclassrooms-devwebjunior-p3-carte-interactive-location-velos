@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Louez un vélo à Toulouse en 2 clics dans l'une de nos stations.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+        <!--style-->
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+        <!--favicon-->
+        <link rel="shortcut icon" type="img/png" href="img/favicon_p3.png"/>
+        <!--Roboto-->
+        <link href="https://fonts.googleapis.com/css?family=Lato|Roboto&display=swap" rel="stylesheet">
+        <!--Fontawesome-->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+        <!--leaflet-->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+        integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+        crossorigin=""/>
+        <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+        integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+        crossorigin=""></script>
+        <link rel="stylesheet" href="//unpkg.com/leaflet-gesture-handling/dist/leaflet-gesture-handling.min.css" type="text/css">
+        <script src="//unpkg.com/leaflet-gesture-handling"></script>
+
+        <title>Location de vélos à Toulouse, Occitanie, France</title>
+    </head>
+
+    <body>
+        <!--Modal Box-->
+        <div class="bg-modal-end">
+            <div class="modal-content-end">
+                <div class="close-end">+</div>
+            <p class="modal-p-end">Votre réservation vient d'expirer car le délai de 30 minutes est dépassé. Vous pouvez de nouveau réserver un vélo.</p>
+            </div>
+        </div>
+        <div class="bg-modal-abort">
+            <div class="modal-content-abort">
+                <div class="close-abort">+</div>
+            <p class="modal-p-abort">L'annulation de votre réservation à bien été prise en compte.</p>
+            </div>
+        </div>
+
+        <div id="mobform_container"><div id="mobform_content"><!-- Encart de réservation pour mobile--></div></div>
+
+        <div id="mobiletopbtn"><a href="#">^</a></div>
+        <header id="header">
+            <img id="logo" src="img/maison-du-velo.png"/>
+            <nav>
+                <ul>
+                    <li id="li1"><a href="#"><i class="fas fa-home fa-lg"></i></a></li>
+                    <li id="li2"><a href="#map"><span>STATIONS</span></a></li>
+                    <li id="li3"><a href="#resCont"><span>RÉSERVATIONS</span></a></li>
+                </ul>
+            </nav>
+            <div class="menu-toggle"><i class="fa fa-bars" aria-hidden="true"></i></div>
+        </header>
+
+        <section id="mobileSlider">
+            <!--<div id="mobileSliderButs">
+                <button id="mobPrev"><i class="fas fa-chevron-left"></i></button>
+                <button id="mobileSliderPlay"><i class="fas fa-play"></i></button>
+                <button id="mobileSliderStop"><i class="fas fa-pause"></i></button>
+                <button id="mobNext"><i class="fas fa-chevron-right"></i></button>
+            </div>-->
+            <div id="mobileSliderSlides">
+                <div class="mobileSlides">
+                    <img class="mobileSlidesImg" src="img/mobileslider1.jpg" alt="Location de vélos à Toulouse - louez en 3 étapes">
+                    <p class="mobileSlideP">Louez un vélo en 3 étapes :</p>
+                </div>
+                <div class="mobileSlides">
+                    <img class="mobileSlidesImg" src="img/mobileslider2.jpg" alt="Location de vélos à Toulouse - Choisissez votre station de location">
+                    <p class="mobileSlideP">1. Choisissez une station...</p>
+                </div>
+                <div class="mobileSlides">
+                    <img class="mobileSlidesImg" src="img/mobileslider3.jpg" alt="Location de vélos à Toulouse - Validez votre réservation">
+                    <p class="mobileSlideP">2. Un nom, un prénom, signez, et validez...</p>
+                </div>
+                <div class="mobileSlides">
+                    <img class="mobileSlidesImg" src="img/mobileslider4.jpg" alt="Location de vélos à Toulouse - les infos sur votre réservation">
+                    <p class="mobileSlideP">3. Votre vélo vous attend pendant 30 minutes.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <section id="carrousel" class="container">
+            <div id="but_pic">
+                <div id="prev">
+                    <button><i class="fas fa-chevron-left"></i></button>
+                </div>
+                <div class="slide" class="active_slide">
+                    <img class="slide_img" src="img/slider1.jpg" alt="Location de vélos à Toulouse - louez en 3 étapes">
+                    <p class="slide_p">
+                        </br>
+                        <span class="ph3">Envie de louer un vélo dans l’heure ?</span></br>
+                        <span class="ph4">Réservez-le en seulement 3 étapes !</span>
+                    </p>
+                </div>
+                <div class="slide">
+                    <img class="slide_img" src="img/slider2.jpg" alt="Location de vélos à Toulouse - Choisissez votre station de location">
+                    <p class="slide_p">
+                        </br>
+                        <span class="ph3">1. Choisissez votre station</span></br>
+                        <span class="ph4">Sélectionnez l’un des marqueurs sur la map. La zone de recherche vous permet d’affiner la localité de la station recherchée.</span>
+                    </p>
+                </div>
+                <div class="slide">
+                    <img class="slide_img" src="img/slider3.jpg" alt="Location de vélos à Toulouse - Validez votre réservation">
+                    <p class="slide_p">
+                        </br>
+                        <span class="ph3">2. Validez la réservation</span></br>
+                        <span class="ph4">Une fois la station choisie, il ne reste plus qu'à valider la réservation. Pour cela, il suffit de signer la réservation dans la zone prévue à cet effet et d'appuyer sur 'Valider'.</span>
+                    </p>
+                </div>
+                <div class="slide">
+                    <img class="slide_img" src="img/slider4.jpg" alt="Location de vélos à Toulouse - les infos sur votre réservation">
+                    <p class="slide_p">
+                        </br>
+                        <span class="ph3">3. Réservation en cours</span></br>
+                        <span class="ph4">Retrouvez toutes les informations concernant votre réservation en cours, ainsi que la possibilité de l'annuler à tout moment.</span>
+                    </p>
+                </div>
+                <div id="next">
+                    <button id="next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <div id="play_stop">
+                <button id="play"><i class="fas fa-play"></i></button>
+                <button id="stop"><i class="fas fa-pause"></i></button>
+            </div>
+        </section>
+
+        <div id="map_container">
+            <!-- Div de la carte -->
+            <div id='map'></div>
+            <div id="form_container"><!-- Encart de réservation --></div>
+        </div>
+
+        <section id="resCont">
+            <div id="res">
+                <h2>Résumé de votre réservation</h2>
+                <div id="res_status" class="res_bloc">
+                    <h4>Statut de la réservation</h4>
+                    <p><span id="res_status_span">Pas de</span> réservation(s) en cours</p>
+                </div>
+                <div id="res_thx" class="res_bloc">
+                    <p>Merci <span id="res_thx_span"></span> pour votre réservation.</br>Voici un résumé de celle-ci :</p>
+                    <p id="data_station"></p>
+                    <p id="data_adresse"></p>
+                    <p id="data_time"></p>
+                    <div id='decompte'>
+                        <div class='decompteBloc' id='minutes'></div>
+                        <div class='decompteBloc' id='secondes'></div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <footer>
+            <p>Copyright © 2020 Julien Dalla Santa | Projet réalisé dans le cadre d'une formation Openclassrooms | <a href="">Mentions légales.</a></p>
+        </footer>
+
+        <section id="rgpd" style="display: none">
+            <h4>UTILISATION DES COOKIES</h4>
+            <div id="rgpdContent">
+                <p>Nous utilisons des cookies pour vous garantir la meilleure expérience et améliorer la performance de notre site web.<br/>
+                Pour plus d'informations, consultez nos <a href=""><strong>CGU</strong></a> et notre <a href=""><strong>politique cookie</strong></a>.
+                En continuant votre navigation, vous acceptez le dépôt des cookies.</p>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-times-circle"></i>
+            </div>
+        </section>
+        <section id="mobrgpd" style="display: none">
+            <h4>UTILISATION DES COOKIES</h4>
+            <div id="rgpdContent">
+                <p>Nous utilisons des cookies pour vous garantir la meilleure expérience et améliorer la performance de notre site web.<br/>
+                Pour plus d'informations, consultez nos <a href=""><strong>CGU</strong></a> et notre <a href=""><strong>politique cookie</strong></a>.
+                En continuant votre navigation, vous acceptez le dépôt des cookies.</p>
+                <i class="fas fa-check-circle"></i>
+                <i class="fas fa-times-circle"></i>
+            </div>
+        </section>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCDqnF7_sYGUDLj0BkECfFUxwyVqCGn99o"></script>
+        <script src="js/ajax.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/menuresponsive.js"></script>
+        <script src="js/localstorage.js"></script>
+        <script src="js/mobileSlider.js"></script>
+        <script src="js/slider.js"></script>
+        <script src="js/mapvelos.js"></script>
+        <script src="js/canvasjds.js"></script>
+        <script src="js/mobcanvasjds.js"></script>
+        <script src="js/rgpd.js"></script>
+        <script src='https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.4.1/leaflet.markercluster.js'></script>
+    </body>
+</html>

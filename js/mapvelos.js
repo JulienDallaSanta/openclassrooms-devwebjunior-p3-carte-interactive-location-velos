@@ -77,7 +77,15 @@ $(document).ready(function(){
     {
         scrollWheelZoom:false,
         center: [43.605000, 1.440466],
-        zoom: 13
+        zoom: 13,
+        gestureHandling: true,
+        gestureHandlingOptions: {
+            text: {
+                touch: "use two fingers to move the map",
+                scroll: "use ctrl + scroll to zoom the map",
+                scrollMac: "use \u2318 + scroll to zoom the map"
+            }
+        }
     });
 
     let veloicon ={

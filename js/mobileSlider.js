@@ -3,19 +3,19 @@ var MobileSlider = {
     currentIndex: 0,
 
     init: function () {
-        mobileSliderElt = $("#mobileSlider")
-        this.mobAutoSlide();
+        mobileSliderElt = $("#mobileSlider");
+        $(document).ready(() => { this.mobAutoSlide(); });
         mobileSliderElt.on("touchstart", (e) => { this.handleStart(e); });
-        window.addEventListener("touchmove", (e) => { this.handleMove(e); });
+        window.addEventListener("touchmove", (e) => { this.handleMove(e); }, { passive: false });
         window.addEventListener("touchend", (e) => { this.handleEnd(e); });
         window.addEventListener("touchcancel", (e) => { this.handleEnd(e); });
-        //MobileSlider.mobPrevNextSlideOnTouch();
+        //this.mobPrevNextSlideOnTouch();
     },
 
     // Display the current mobileSlide
     mobActiveSlide: function () {
         var mobileSlides = $('.mobileSlides');
-        var mobileSlide = mobileSlides.eq(MobileSlider.currentIndex);
+        var mobileSlide = mobileSlides.eq(this.currentIndex);
         mobileSlides.hide();
         mobileSlide.show();
     },
@@ -24,9 +24,9 @@ var MobileSlider = {
     mobIndexPlus: function () {
         var mobileSlides = $('.mobileSlides');
         var mobSlidesNumber = mobileSlides.length;
-        MobileSlider.currentIndex ++;
-        if (MobileSlider.currentIndex > mobSlidesNumber - 1) {
-            MobileSlider.currentIndex = 0;
+        this.currentIndex ++;
+        if (this.currentIndex > mobSlidesNumber - 1) {
+            this.currentIndex = 0;
         }
     },
 
@@ -34,34 +34,36 @@ var MobileSlider = {
     mobIndexMinus: function () {
         var mobileSlides = $('.mobileSlides');
         var mobSlidesNumber = mobileSlides.length;
-        MobileSlider.currentIndex --;
+        this.currentIndex --;
 
-        if (MobileSlider.currentIndex < 0) {
-            MobileSlider.currentIndex = mobSlidesNumber - 1;
+        if (this.currentIndex < 0) {
+            this.currentIndex = mobSlidesNumber - 1;
         }
     },
 
     // automatic and controllable mobileSlide function
     mobAutoSlide: function () {
-        timer = setInterval(function () {
-            MobileSlider.mobIndexPlus();
-            MobileSlider.mobActiveSlide();
+        console.log('mobautoslide');
+        timer = setInterval(() => {
+            this.mobIndexPlus();
+            this.mobActiveSlide();
         }, 5000);
     },
 
     //fonction de désactivation du prev/next slide
     disableAutoslide: function () {
+        console.log('disableautoslide');
         clearInterval(timer);
     },
 
     //Démarre le déplacement au toucher
     handleStart: function (e) {
-        e.preventDefault();
         this.painting = true;
         if(e.touches){
-            this.disableAutoslide();
             // Coordonnées de la souris :
             this.origin = { x: e.touches[0].pageX, y: e.touches[0].pageY };
+            this.disableAutoslide();
+            return this.origin;
         }
     },
 
@@ -70,28 +72,42 @@ var MobileSlider = {
         // Si je suis en train de dessiner (click souris enfoncé) :
         if (!this.painting) return;
         // Set Coordonnées de la souris :
-        var pageX = e.touches[0].pageX - 2;
-        var pageY = e.touches[0].pageY - 2;
         var touches = e.changedTouches;
-        if(Math.abs((this.origin.x - pageX) / window.innerWidth) > 0.15){
-            if((this.origin.x - pageX) > 0){
-                this.mobIndexPlus();
-            }
-            else {
-                console.log('test');
-                this.mobIndexMinus();
-            }
-            this.mobActiveSlide();
-            this.painting = false
-        }
+        var move = { x: e.touches[touches.length-1].pageX, y: e.touches[touches.length-1].pageY };
+        if(Math.abs(move.y - this.origin.y) > Math.abs(move.x - this.origin.x)){
+            //window.addEventListener("touchmove", function () { e.preventDefault(); });
+            this.painting = false;
+            return;
+        } else {
+            e.preventDefault();
+            if(Math.abs((this.origin.x - move.x) / window.innerWidth) > 0.15){
+                if((this.origin.x - move.x) > 0){
+                    this.mobIndexPlus();
+                }
 
+                else {
+                    this.mobIndexMinus();
+                }
+                this.mobActiveSlide();
+                this.painting = false
+            }
+
+        }
     },
 
     handleEnd: function () {
         // Relachement du toucher sur tout le document :
+        console.log('handleEnd');
+        if(this.painting == false){
+            if(timer == true){
+            } else{
+                this.mobAutoSlide();
+            }
+            return;
+        }
         this.painting = false;
         this.started = false;
-        this.mobAutoSlide();
+
     }
 }
 
