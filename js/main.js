@@ -3,7 +3,7 @@ $(document).ready(function(){
     $("#mobiletopbtn").hide();
     var largeur = $(window).width();
     if(largeur <= 768){
-        $("#mobrgpd").show();
+        $("#rgpd").addClass('forMobileDevices');
         $(window).scroll(function(){
             if(window.scrollY>=300){
                 $("#mobiletopbtn").show();
@@ -13,7 +13,7 @@ $(document).ready(function(){
         });
     }else{
         $("#mobiletopbtn").hide();
-        $("#rgpd").show();
+        $("#rgpd").removeClass('forMobileDevices');
     }
 //-----------boutons du RGPD---------
     $(".fa-check-circle").on('click', ()=>{

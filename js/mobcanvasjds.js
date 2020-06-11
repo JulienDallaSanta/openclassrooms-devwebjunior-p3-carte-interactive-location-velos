@@ -44,7 +44,6 @@ class mobSign{
         // Coordonnées du touch :
         var touches = e.changedTouches;
         for(var i=0; i<touches.length; i++){
-            console.log(this);
             this.canvas[0].touchX = (touches[i].pageX - this.canvas[0].offsetLeft);
             this.touchY = (touches[i].pageY - this.canvas[0].offsetTop);
         }
@@ -62,13 +61,9 @@ class mobSign{
         if (this.painting) {
             // Set Coordonnées de la souris :
             var touches = e.changedTouches;
-            console.log(touches);
             for(var i =0; i<touches.length; i++){
                 this.touchX = (touches[i].clientX - this.canvas[0].offsetLeft) - 2 - (touches[i].radiusX/2);
-                console.log(touches[i].pageX, this.canvas[0].offsetLeft);
                 this.touchY = (touches[i].clientY - this.canvas[0].offsetTop) - 2 - (touches[i].radiusY/2);
-                //console.log({x:this.touchX, y:this.touchY});
-                console.log(touches[i].pageY, this.canvas[0].offsetTop);
                 this.drawLine();
             }
         }
@@ -177,7 +172,6 @@ function mobrescan(event){
             let nomForm = localStorage.getItem('name');
             let prenomForm = localStorage.getItem('firstname');;
             let prenomNom = prenomForm + " " + nomForm;
-            console.log(prenomNom);
 
             //check signature && datas
             if($("#res_status_span").textContent = "Pas de"){
@@ -221,7 +215,6 @@ function mobrescan(event){
             $("#show_sign").on("click", ()=>{
                 arrow.toggle();
                 mySign.toggle();
-                console.log(mySign.css('display'));
             });
         });
     }else if(!regex.test($('#name').val()) && !regex.test($('#firstname').val())){

@@ -103,13 +103,20 @@ body{
 #rgpd{
     position: fixed;
     background-color: black;
-    opacity: 0.7;
     z-index: 8;
+    padding: 2% 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    opacity: 0.8;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 #rgpd h4{
+    font-size: 150%;
+    color: white;
     margin: 0;
 }
 #rgpdContent{
@@ -117,10 +124,18 @@ body{
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 70%;
+    width: 80%;
 }
 #rgpd p{
     text-align: center;
+    font-size: 120%;
+    color: white;
+    margin: 1em 0 0 0;
+    width: 80%;
+    text-align: justify;
+}
+#rgpd p a{
+    color: forestgreen;
 }
 .fa-check-circle{
     color: rgb(20, 172, 20);
@@ -134,35 +149,34 @@ body{
 .fa-check-circle, .fa-times-circle{
     opacity: 0.5;
     margin: 0;
+    font-size: 200%;
+}
+/*----------------rgpd for mobile devices-----------*/
+#rgpd.forMobileDevices{
+    position: fixed;
+    opacity: 0.9;
+    height: 100vh;
+}
+#rgpd.forMobileDevices #rgpdContent i{
+    position: absolute;
+    bottom: 20%;
+}
+#rgpd.forMobileDevices #rgpdContent .fa-check-circle{
+    left: 30%;
+}
+#rgpd.forMobileDevices #rgpdContent .fa-times-circle{
+    right: 30%;
+}
+#rgpd.forMobileDevices #rgpdContent p{
+    text-align: justify;
+}
+#rgpd.forMobileDevices .fa-check-circle, #rgpd.forMobileDevices  .fa-times-circle{
+    font-size: 300%;
 }
 
 @media screen and (min-width:768px){
 	#mobiletopbtn{
 		display: none;
-    }
-    #rgpd{
-        padding: 2% 0;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 7%;
-        opacity: 0.8;
-        justify-content: center;
-    }
-    #rgpd h4{
-        font-size: 150%;
-        color: white;
-        margin-top: 1em;
-    }
-    #rgpd p{
-        font-size: 120%;
-        color: white;
-    }
-    #rgpd p a{
-        color: forestgreen;
-    }
-    .fa-check-circle, .fa-times-circle{
-        font-size: 200%;
     }
 }
 @media screen and (max-width:576px){

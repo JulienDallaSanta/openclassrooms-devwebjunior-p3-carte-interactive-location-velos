@@ -9,7 +9,6 @@ var MobileSlider = {
         window.addEventListener("touchmove", (e) => { this.handleMove(e); }, { passive: false });
         window.addEventListener("touchend", (e) => { this.handleEnd(e); });
         window.addEventListener("touchcancel", (e) => { this.handleEnd(e); });
-        //this.mobPrevNextSlideOnTouch();
     },
 
     // Display the current mobileSlide
@@ -43,7 +42,6 @@ var MobileSlider = {
 
     // automatic and controllable mobileSlide function
     mobAutoSlide: function () {
-        console.log('mobautoslide');
         timer = setInterval(() => {
             this.mobIndexPlus();
             this.mobActiveSlide();
@@ -52,7 +50,6 @@ var MobileSlider = {
 
     //fonction de désactivation du prev/next slide
     disableAutoslide: function () {
-        console.log('disableautoslide');
         clearInterval(timer);
     },
 
@@ -75,7 +72,6 @@ var MobileSlider = {
         var touches = e.changedTouches;
         var move = { x: e.touches[touches.length-1].pageX, y: e.touches[touches.length-1].pageY };
         if(Math.abs(move.y - this.origin.y) > Math.abs(move.x - this.origin.x)){
-            //window.addEventListener("touchmove", function () { e.preventDefault(); });
             this.painting = false;
             return;
         } else {
@@ -97,7 +93,6 @@ var MobileSlider = {
 
     handleEnd: function () {
         // Relachement du toucher sur tout le document :
-        console.log('handleEnd');
         if(this.painting == false){
             if(timer == true){
             } else{

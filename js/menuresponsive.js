@@ -1,7 +1,6 @@
 $(document).ready(function(){
     var largeur = window.innerWidth;
     $("#li1").addClass("active");
-    console.log($("nav>ul>li"));
 
     $("#li1").on('click',(event)=>{
         event.stopPropagation();
@@ -29,7 +28,6 @@ $(document).ready(function(){
     });
 
     $(".menu-toggle").click(function(){
-        console.log('menu');
         $('nav').toggleClass("active");
         if( largeur <= 768){
             $('nav.active').show();
